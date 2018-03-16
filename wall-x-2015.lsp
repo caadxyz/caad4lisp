@@ -69,7 +69,7 @@
                 pt6 (caddr l0)
             )
             ; 断开线条
-            (command
+            (command-s
                 ".BREAK" (car l0)
                 (inters pt5 pt6 pt1 pt2)
                 (inters pt5 pt6 pt3 pt4)
