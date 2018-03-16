@@ -17,8 +17,10 @@
     (setq cap (getdist "\nEnter bubble diameter:"))
 
     (setvar "cmdecho" 1)
+
     ;Change the LAYEr and close command echo
     (command "_.layer" "_new" "TAL_BUBBLE" "_set" "TAL_BUBBLE" "")
+
     (draw_bubble)
     (setvar "cmdecho" oldCmdecho)
     (setvar "clayer"  oldLayer)
