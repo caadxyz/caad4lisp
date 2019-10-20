@@ -7,7 +7,7 @@ required: autolisp enviroment
 * **wallx**: cleanup walls
 
 ```
-(load caad.lsp)
+(load "caad.lsp")
 ```
 
 
