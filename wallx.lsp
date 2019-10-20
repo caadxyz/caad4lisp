@@ -1,20 +1,45 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 清理两道墙线相交之间的线(wall-x)
 ;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
-;; inters  获取两条线的交点
-;; polar  Returns the UCS 3D point at a specified angle and distance from a point
-;; minusp  Verifies that a number is negative 
-;; ssname Returns the object (entity) name of the indexed element of a selection set
-;; nth Returns the nth element of a list
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Start Of File
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lisp函数
+;; Elements from a List
+;; Car:      (X co-ordinate or 1st element)
+;; Cdr:      (second and remaining elements)
+;; nth:      Returns the nth element of a list
+;; append:   连接两个list
+;; list:     生成一个list
+;; mapcar:   perform a "function" on each element of the list
+;;
+;; lambda:   in-line function
+;;
+;; progn:    Evaluates each expression sequentially and returns the value of the last expression
+;;
+;; initget:  Establishes various options for use by the next getxxx function.
+
+;; inters:   获取两条线的交点
+;; polar:    Returns the UCS 3D point at a specified angle and distance from a point
+;; minusp:   Verifies that a number is negative
+;; ssname:   Returns the object (entity) name of the indexed element of a selection set
+;; ssget:    Creates a selection set from the selected object
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; parameter:
+;; /:      local variable
+;; >90:    90 degree angle
+;; @work:  程序运行显示 \ | / -
+;; fuzzy:  判断x-y的绝对值是否无限小
 (defun c:wall-x (/ >90 @work dists edata etype fuzzy get getslope head i l0
 		 merge neatx1 nukenz perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
 		 slope sort ss ssfunc tail wall1 wall2 walls work
 		 )
   (setq clayer nil)
-  ;; 设置检查输出 
   (princ "\nLoading -")
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; debug程序加载进程情况;;;
   (setq @WORK '("\\" "|" "/" "-"))
   (defun WORK ()
     ; Backspace
@@ -22,15 +47,17 @@
     (setq @work (append (cdr @work) (list (princ (car @work)))))
   )
 
-  ;;;;;;;;;;;;;;;; 
+
+  (work)
+  ;;;;;;;;;;;;;;;;;;; 
   ;;断开交点  start
-  (work)
-  (defun NUKENZ (x)
-    (cdr (reverse (cdr x)))
-  )  
-  (work)
+  ;;;;;;;;;;;;;;;;;;;;;
+  ;
   ; dist1为pt0到wall1两条线的距离
+  ; ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
+  ;
   ; dist2为pt0到wall2两条线的距离
+  ; ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
   (defun NEATX1 (dist1 dist2)
     (cond
         ((cdr dist1)
@@ -45,7 +72,7 @@
                 ; 2nd wall - line 2
                 (nth (cadr (last dist2)) wall2)
             )
-            (neatx1 (nukenz dist1) (nukenz dist2))
+            ;(neatx1 (nukenz dist1) (nukenz dist2))
         )
         (T (princ "\rComplete."))
     )
@@ -82,25 +109,27 @@
 	(list b2 a2)
     )
   )
+  ;(work)
+  ;(defun NUKENZ (x)
+  ;  (cdr (reverse (cdr x)))
+  ;) 
+  ;;;;;;;;;;;;;;;;
   ;;断开交点  end
-  ;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;
 
-  
   (work)
-  ;; 通过key查找关联数组
+  ;; 对已经获得的直线的相关数据获得与key相关的数据数组
   (defun GET (key alist)
     (if (atom key)
 	(cdr (assoc key alist))
 	(mapcar '(lambda (x) (cdr (assoc x alist))) key)
 	)
   )
-
   (work)
   ;; 判断x-y的绝对值是否无限小
   (defun FUZZY (x y)
      (< (abs (- x y)) 1.0e-6)
   ) 
-
   (work)
   ;; 对数组根据数字中第一个数字大小进行排序
   (defun SORT (x)
@@ -142,7 +171,6 @@
       (t (tail (cdr l) (- n 2)))
       )
    )
-
   (work)
   ; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-2)/(x1-x2)|
   (defun GETSLOPE (pt1 pt2 / x)
@@ -161,13 +189,13 @@
     (member (get 0 edata) (if (listp match) match (list match)))
   )
   (work)
+  ;; 对框选的4根直线(ss)中每一根直线都通过其名称(ename)加载函数func
   (defun SSFUNC (ss func / i ename)
     (setq i -1)
     (while (setq ename (ssname ss (setq i (1+ i))))
       (apply func nil)
       )
    )
-
   
   (work)
   ;; 求pt0到通过pt1及pt2的垂直点
@@ -186,51 +214,51 @@
   (princ "\rLoaded. ")
 
   (while
+
+    ;------------------------------------
+	; 鼠标框选4lines start  并且初始pt0 pt1
+	;-------------------------------------
     (progn
 	(initget "Select")
 	;; 获取第一点pt0
 	(setq pt0 (getpoint "\nSelect objects/<First corner>: "))
     )
+
     (setq
-	dists nil
-	perps nil
-	walls nil
+	  dists nil
+	  perps nil
+	  walls nil
     )
 
     (cond
-      ((eq (type pt0) 'LIST)
-	(initget 33)
-	(setq
-	    ;; 获取第二点pt1
-	    pt1 (getcorner pt0 "\nOther corner: ")
-	    ; 通过两点框选物体
-	    ss (ssget "C" pt0 pt1)
-	    )
-      )
-      (T
-       (while
-	   (progn
-	     (princ "\nSelect objects: ")
-	     (command ".SELECT" "Au" pause)
-	     (not (setq ss (ssget "P")))
-	     )
-	 (print "No objects selected, try again.")
-	 )
-       (initget 1)
-       (setq pt0 (getpoint "\nPoint to outside of wall: "))
-       )
-      )
+          ((eq (type pt0) 'LIST)
+            (initget 33)
+            (setq
+                ;; 获取第二点pt1
+                pt1 (getcorner pt0 "\nOther corner: ")
+                ; 通过两点框选物体
+                ss (ssget "C" pt0 pt1)
+                )
+          )
+    )
+    (princ "\n------鼠标框选4lines----------\n")
+    (princ ss)
+    (princ "\n------------------------------\n")
+
     (princ "\nWorking ")
     (command ".UNDO" "Group")
-
+    ;------------------------------------
+	; 鼠标框选4lines end
+	;------------------------------------
     
     (ssfunc ss
 	'(lambda ()
 	    (work)
+        ; 通过ename获取直线的相关数据edata
 	    (setq edata (entget ename))
 	    ; 如果是“LINE”者运行， 如果不是则下一个元素
 	    ; 结果为walls数组(wall1 wall2)
-	    ; wall1(slope edata1 edate2)
+	    ; wall(slope edata1 edate2)
 	    (if (etype edata "LINE")
 		(setq
 		    ; Get relevant groups
@@ -248,6 +276,29 @@
 	    )
       )
     )
+   
+    ;; walls list 
+    ;;   (
+    ;;       (  1.2551  ;wall1-slope
+    ;;           (<EName:  000060000051eb80> ;wall1-line1
+    ;;                     (-122.06991376 -34.25186944 0.0) (-46.76141103 -128.77172492 0.0) 
+    ;;           ) 
+    ;;           (<EName:  000060000051efd0> ;wall1-line2
+    ;;                     (-75.50710189 -12.4545372 0.0) (-7.65601242 -97.61457806 0.0)
+    ;;           )
+    ;;        ) 
+    ;;        (  0.4681 ;wall2-slope 
+    ;;           (<EName:  000060000051ee50>  ;wall2-line1
+    ;;                     (-107.38380958 -112.7592744 0.0) (249.25108723 54.19132471 0.0)
+    ;;           ) 
+    ;;           (<EName:  000060000051ec70> ;wall2-line2
+    ;;                     (-139.42098818 -72.54934615 0.0) (217.21390863 94.40125295 0.0)
+    ;;            )
+    ;;        )
+    ;;    )
+    (princ "\n------walls-------------------\n")
+    (princ walls)
+    (princ "\n------------------------------\n")
 
     (cond
         ((< (length walls) 2)
@@ -310,6 +361,29 @@
 	    ; Sort distance index
 	    (setq dists (mapcar 'sort dists))
 	    (setq wall1 (car walls) wall2 (cadr walls))
+
+
+        ;;---dists: 对walls的每条line进行由近到远的排序------
+        ;;(
+        ;;  ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
+        ;;  ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
+        ;;)
+        ;; ----wall1-----
+        ;;(1.2551 
+        ;; (<EName:  000060000051eb80> (-122.06991376 -34.25186944 0.0) (-46.76141103 -128.77172492 0.0))  ;wall1line1
+        ;; (<EName:  000060000051efd0> (-75.50710189 -12.4545372 0.0) (-7.65601242 -97.61457806 0.0)))     ;wall1line2
+        ;;----wall2-----
+        ;;(0.4681 
+        ;; (<EName:  000060000051ee50> (-107.38380958 -112.7592744 0.0) (249.25108723 54.19132471 0.0))    ;wall2line1
+        ;; (<EName:  000060000051ec70> (-139.42098818 -72.54934615 0.0) (217.21390863 94.40125295 0.0)))   ;wall2line2
+        (princ "\n------dists-------------------\n")
+        (princ dists)
+        (princ "\n------wall1-------------------\n")
+        (princ wall1)
+        (princ "\n------wall2-------------------\n")
+        (princ wall2)
+        (princ "\n------------------------------\n")
+
 	    ; Clean intersections
 	    (neatx1 (car dists) (cadr dists))
        )
