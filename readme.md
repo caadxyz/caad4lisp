@@ -6,4 +6,9 @@ required: autolisp enviroment
 * **wall**: draw double lines  
 * **wallx**: cleanup walls
 
+```
+(load caad.lsp)
+```
+
+
 
