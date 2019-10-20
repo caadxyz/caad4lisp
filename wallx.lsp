@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 清理两道墙线相交之间的线(wall-x)
 ;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp函数
@@ -15,23 +15,23 @@
 ;;
 ;; lambda:   in-line function
 ;;
-;; progn:    Evaluates each expression sequentially and returns the value of the last expression
+;; progn:    Evaluates each expression sequentially and returns the value of the last expression   
 ;;
 ;; initget:  Establishes various options for use by the next getxxx function.
 
 ;; inters:   获取两条线的交点
 ;; polar:    Returns the UCS 3D point at a specified angle and distance from a point
-;; minusp:   Verifies that a number is negative
+;; minusp:   Verifies that a number is negative 
 ;; ssname:   Returns the object (entity) name of the indexed element of a selection set
 ;; ssget:    Creates a selection set from the selected object
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; parameter:
+;; parameter: 
 ;; /:      local variable
 ;; >90:    90 degree angle
 ;; @work:  程序运行显示 \ | / -
 ;; fuzzy:  判断x-y的绝对值是否无限小
-(defun c:wall-x (/ >90 @work dists edata etype fuzzy get getslope head i l0
+(defun c:wallx (/ >90 @work dists edata etype fuzzy get getslope head i l0
 		 merge neatx1 nukenz perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
 		 slope sort ss ssfunc tail wall1 wall2 walls work
 		 )
@@ -196,6 +196,7 @@
       (apply func nil)
       )
    )
+
   
   (work)
   ;; 求pt0到通过pt1及pt2的垂直点
@@ -208,8 +209,9 @@
   ; Main Function
   ;---------------
   (setq >90 (/ pi 2))
-  ; Stuff Gary will want to fix...
+  ;; CmdEcho:  Controls whether prompts and input are echoed during the AutoLISP command function.
   (setvar "CmdEcho" 0)
+  ;; Blipmode is an obsolete AutoCAD function that, in earlier versions of the software, left a mark in your drawing on points that you specified. The marks are visual references and do not appear in printouts of the drawing. Though Blipmode is obsolete, it is still an available function in AutoCAD if you turn it on or import a project saved using an older version of the software that had Blipmode enabled. To remove the blips, you need to disable the Blipmode function in AutoCAD.
   (setvar "BlipMode" 0)
   (princ "\rLoaded. ")
 
@@ -225,9 +227,9 @@
     )
 
     (setq
-	  dists nil
-	  perps nil
-	  walls nil
+	dists nil
+	perps nil
+	walls nil
     )
 
     (cond
@@ -240,6 +242,7 @@
                 ss (ssget "C" pt0 pt1)
                 )
           )
+          (T (princ "\rGot4Lines."))
     )
     (princ "\n------鼠标框选4lines----------\n")
     (princ ss)

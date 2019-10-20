@@ -10,7 +10,9 @@
 ;;; Version:0.1                                ;
 ;;; ============================================
 
-;;;Main function
+;;; Main function
+;;; require autocad
+
 (defun c:wall (/ p1 plist w1 w1a w2 w2a w1lst w2lst anglist seglist 
 seg1list seg2list)
  (setq w1 10
