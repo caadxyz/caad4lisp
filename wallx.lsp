@@ -4,6 +4,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Util.lsp
+;; Util-Working: 运行进程debugger
+;;
 ;; lisp函数
 ;; Elements from a List
 ;; Car:      (X co-ordinate or 1st element)
@@ -29,26 +32,15 @@
 ;; parameter: 
 ;; /:      local variable
 ;; >90:    90 degree angle
-;; @work:  程序运行显示 \ | / -
-;; fuzzy:  判断x-y的绝对值是否无限小
-(defun c:wallx (/ >90 @work dists edata etype fuzzy get getslope head i l0
-		 merge neatx1 nukenz perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
-		 slope sort ss ssfunc tail wall1 wall2 walls work
+(defun c:wallx (/ >90 dists edata etype get head i l0
+		 merge neatx1 perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
+		 slope sort ss ssfunc tail wall1 wall2 walls
 		 )
+
   (setq clayer nil)
   (princ "\nLoading -")
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; debug程序加载进程情况;;;
-  (setq @WORK '("\\" "|" "/" "-"))
-  (defun WORK ()
-    ; Backspace
-    (prompt "\010")
-    (setq @work (append (cdr @work) (list (princ (car @work)))))
-  )
-
-
-  (work)
+  (Util-Working)
   ;;;;;;;;;;;;;;;;;;; 
   ;;断开交点  start
   ;;;;;;;;;;;;;;;;;;;;;
@@ -61,7 +53,7 @@
   (defun NEATX1 (dist1 dist2)
     (cond
         ((cdr dist1)
-            (work)
+            (Util-Working)
             (neatx2
                 ; 1st wall - line 1
                 (nth (cadar dist1) wall1)
@@ -77,11 +69,11 @@
         (T (princ "\rComplete."))
     )
   )
-  (work)
+  (Util-Working)
   (defun NEATX2 (a1 a2 b1 b2)
     (mapcar
 	'(lambda (x l1 l2)
-	    (work)
+	    (Util-Working)
 	    (setq
             pt1 (cadr l1)
             pt2 (caddr l1)
@@ -109,7 +101,7 @@
 	(list b2 a2)
     )
   )
-  ;(work)
+  
   ;(defun NUKENZ (x)
   ;  (cdr (reverse (cdr x)))
   ;) 
@@ -117,7 +109,7 @@
   ;;断开交点  end
   ;;;;;;;;;;;;;;;;
 
-  (work)
+  (Util-Working)
   ;; 对已经获得的直线的相关数据获得与key相关的数据数组
   (defun GET (key alist)
     (if (atom key)
@@ -125,12 +117,9 @@
 	(mapcar '(lambda (x) (cdr (assoc x alist))) key)
 	)
   )
-  (work)
-  ;; 判断x-y的绝对值是否无限小
-  (defun FUZZY (x y)
-     (< (abs (- x y)) 1.0e-6)
-  ) 
-  (work)
+
+
+  (Util-Working)
   ;; 对数组根据数字中第一个数字大小进行排序
   (defun SORT (x)
     (cond
@@ -143,7 +132,7 @@
       )
     )
   )
-  (work)
+  (Util-Working)
   ;; 合并数组并且按照第一个数组第一个数进行排序
   (defun MERGE (a b)
     (cond
@@ -155,7 +144,7 @@
 	 (t (cons (car b) (merge a (cdr b))))
     )
   )
-  (work)
+  (Util-Working)
   ;; 获取数组l中数字小于n的数
   (defun HEAD (l n)
     (cond
@@ -163,7 +152,7 @@
       (t (cons (car l) (head (cdr l) (- n 2))))
       )
    )
-  (work)
+  (Util-Working)
   ;; 获取数组l中数字大于n的数
   (defun TAIL (l n)
     (cond
@@ -171,24 +160,13 @@
       (t (tail (cdr l) (- n 2)))
       )
    )
-  (work)
-  ; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-2)/(x1-x2)|
-  (defun GETSLOPE (pt1 pt2 / x)
-    ; Vertical?
-    (if (fuzzy (setq x (abs (- (car pt1) (car pt2)))) 0.0)
-	; Yes, return NIL
-	nil
-	; No, compute slope
-	(rtos (/ (abs (- (cadr pt1) (cadr pt2))) x) 2 4)
-	)
-  )
-  
-  (work)
+
+  (Util-Working)
   ;; edata:数组 是否包含有match的信息
   (defun ETYPE (edata match)
     (member (get 0 edata) (if (listp match) match (list match)))
   )
-  (work)
+  (Util-Working)
   ;; 对框选的4根直线(ss)中每一根直线都通过其名称(ename)加载函数func
   (defun SSFUNC (ss func / i ename)
     (setq i -1)
@@ -198,7 +176,7 @@
    )
 
   
-  (work)
+  (Util-Working)
   ;; 求pt0到通过pt1及pt2的垂直点
   (defun PERP (pt0 pt1 pt2)
     (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) >90) 1.0) nil)
@@ -256,7 +234,7 @@
     
     (ssfunc ss
 	'(lambda ()
-	    (work)
+	    (Util-Working)
         ; 通过ename获取直线的相关数据edata
 	    (setq edata (entget ename))
 	    ; 如果是“LINE”者运行， 如果不是则下一个元素
@@ -266,7 +244,7 @@
 		(setq
 		    ; Get relevant groups
 		    edata (get '(-1 10 11) edata)
-		    slope (getslope (cadr edata) (caddr edata))
+		    slope (Geom-GetSlope (cadr edata) (caddr edata))
 		    walls
 		    ; Does this slope already exist in walls list
 		    (if (setq temp (assoc slope walls))
@@ -321,10 +299,10 @@
 	    (setq perps
 		(mapcar
 		'(lambda (x)
-			(work)
+			(Util-Working)
 			(mapcar
 			    '(lambda (y)
-				(work)
+				(Util-Working)
 				(perp pt0 (cadr y) (caddr y))
 			    )
 			    (cdr x)
@@ -341,11 +319,11 @@
 	    (setq dists
             (mapcar
                 '(lambda (x)
-                (work)
+                (Util-Working)
                 (setq i 0)
                 (mapcar
                     '(lambda (y)
-                        (work)
+                        (Util-Working)
                         ; Create list of distances (with pointers to WALLS)
                     (list
                         ; Compute distances
@@ -400,6 +378,7 @@
   (princ)
 )
 
+(princ "\n  WALLX loaded.")
 (princ)
 ;; End Of File
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

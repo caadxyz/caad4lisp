@@ -1,8 +1,9 @@
 ### a lisp tool for architectural design
 
 powered by caad.xyz  v0.001
+required: autolisp enviroment
 
-* **draw-wall**: draw double lines  
-* **wall-x**: cleanup walls
+* **wall**: draw double lines  
+* **wallx**: cleanup walls
 
 
