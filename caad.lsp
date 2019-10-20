@@ -2,7 +2,6 @@
 
 (load "bubble.lsp")
 (load "copyrot.lsp")
-(load "wall.lsp")
 
 (princ "\n ---ikuku.lsp loaded---\n")
 (princ)

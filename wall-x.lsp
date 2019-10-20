@@ -1,13 +1,36 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 清理两道墙线相交之间的线(wall-x)
 ;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
-;; inters  获取两条线的交点
-;; polar  Returns the UCS 3D point at a specified angle and distance from a point
-;; minusp  Verifies that a number is negative 
-;; ssname Returns the object (entity) name of the indexed element of a selection set
-;; nth Returns the nth element of a list
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lisp函数
+;; Elements from a List
+;; Car:      (X co-ordinate or 1st element)
+;; Cdr:      (second and remaining elements)
+;; nth:      Returns the nth element of a list
+;; append:   连接两个list
+;; list:     生成一个list
+;; mapcar:   perform a "function" on each element of the list
+;;
+;; lambda:   in-line function
+;;
+;; progn:    Evaluates each expression sequentially and returns the value of the last expression   
+;;
+;; initget:  Establishes various options for use by the next getxxx function.
+
+;; inters:   获取两条线的交点
+;; polar:    Returns the UCS 3D point at a specified angle and distance from a point
+;; minusp:   Verifies that a number is negative 
+;; ssname:   Returns the object (entity) name of the indexed element of a selection set
+;; ssget:    Creates a selection set from the selected object
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Start Of File
+
+;; parameter: 
+;; /:      local variable
+;; >90:    90 degree angle
+;; @work:  程序运行显示 \ | / -
+;; fuzzy:  判断x-y的绝对值是否无限小
 (defun c:wall-x (/ >90 @work dists edata etype fuzzy get getslope head i l0
 		 merge neatx1 nukenz perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
 		 slope sort ss ssfunc tail wall1 wall2 walls work
@@ -22,12 +45,9 @@
     (setq @work (append (cdr @work) (list (princ (car @work)))))
   )
 
-  ;;;;;;;;;;;;;;;; 
-  ;;断开交点  start
-  (work)
-  (defun NUKENZ (x)
-    (cdr (reverse (cdr x)))
-  )  
+  ;;;;;;;;;;;;;;;;;;;; 
+  ;;断开交点  start;;;
+  ;;;;;;;;;;;;;;;;;;;;
   (work)
   ; dist1为pt0到wall1两条线的距离
   ; dist2为pt0到wall2两条线的距离
@@ -82,8 +102,16 @@
 	(list b2 a2)
     )
   )
-  ;;断开交点  end
-  ;;;;;;;;;;;;;;
+
+  (work)
+  ;;(cdr (reverse (cdr '(1 2 3 4))))  
+  ;;(3 2)
+  (defun NUKENZ (x)
+    (cdr (reverse (cdr x)))
+  )  
+  ;;;;;;;;;;;;;;;;;;;;;
+  ;;断开交点  end  ;;;;
+  ;;;;;;;;;;;;;;;;;;;;;
 
   
   (work)
@@ -168,7 +196,6 @@
       )
    )
 
-  
   (work)
   ;; 求pt0到通过pt1及pt2的垂直点
   (defun PERP (pt0 pt1 pt2)
@@ -180,50 +207,47 @@
   ; Main Function
   ;---------------
   (setq >90 (/ pi 2))
-  ; Stuff Gary will want to fix...
+  ;; CmdEcho:  Controls whether prompts and input are echoed during the AutoLISP command function.
   (setvar "CmdEcho" 0)
+  ;; Blipmode is an obsolete AutoCAD function that, in earlier versions of the software, left a mark in your drawing on points that you specified. The marks are visual references and do not appear in printouts of the drawing. Though Blipmode is obsolete, it is still an available function in AutoCAD if you turn it on or import a project saved using an older version of the software that had Blipmode enabled. To remove the blips, you need to disable the Blipmode function in AutoCAD.
   (setvar "BlipMode" 0)
   (princ "\rLoaded. ")
 
   (while
-    (progn
-	(initget "Select")
-	;; 获取第一点pt0
-	(setq pt0 (getpoint "\nSelect objects/<First corner>: "))
-    )
+
     (setq
-	dists nil
-	perps nil
-	walls nil
+        dists nil
+        perps nil
+        walls nil
     )
 
+    ;------------------------------------
+	; 鼠标框选4lines start  并且初始pt0 pt1
+	;------------------------------------
+    (progn
+	    (initget "Select")
+	    ;; 获取第一点pt0
+	    (setq pt0 (getpoint "\nSelect objects/<First corner>: "))
+    )
     (cond
-      ((eq (type pt0) 'LIST)
-	(initget 33)
-	(setq
-	    ;; 获取第二点pt1
-	    pt1 (getcorner pt0 "\nOther corner: ")
-	    ; 通过两点框选物体
-	    ss (ssget "C" pt0 pt1)
+      ( (eq (type pt0) 'LIST)
+	    (initget 33)
+	    (setq
+	        ;; 获取第二点pt1
+	        pt1 (getcorner pt0 "\nOther corner: ")
+	        ; 通过两点框选物体
+	        ss (ssget "C" pt0 pt1)
 	    )
       )
-      (T
-       (while
-	   (progn
-	     (princ "\nSelect objects: ")
-	     (command ".SELECT" "Au" pause)
-	     (not (setq ss (ssget "P")))
-	     )
-	 (print "No objects selected, try again.")
-	 )
-       (initget 1)
-       (setq pt0 (getpoint "\nPoint to outside of wall: "))
-       )
-      )
+    )
+    ;------------------------------------
+	; 鼠标框选4lines end
+	;------------------------------------
+
+
     (princ "\nWorking ")
     (command ".UNDO" "Group")
 
-    
     (ssfunc ss
 	'(lambda ()
 	    (work)
@@ -239,10 +263,10 @@
 		    walls
 		    ; Does this slope already exist in walls list
 		    (if (setq temp (assoc slope walls))
-			; Yes, add new line info to assoc group
-			(subst (append temp (list edata)) temp walls)
-			; Nope, add new assoc group w/line info
-			(cons (cons slope (list edata)) walls)
+                ; Yes, add new line info to assoc group
+                (subst (append temp (list edata)) temp walls)
+                ; Nope, add new assoc group w/line info
+                (cons (cons slope (list edata)) walls)
 		    )
 		)
 	    )
