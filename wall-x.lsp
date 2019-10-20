@@ -1,4 +1,5 @@
 ;; 清理两道墙线相交之间的线(wall-x)
+;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
 ;; inters  获取两条线的交点
 ;; polar  Returns the UCS 3D point at a specified angle and distance from a point
 ;; minusp  Verifies that a number is negative 

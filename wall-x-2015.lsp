@@ -1,3 +1,6 @@
+;; autocad 2015+  command vs command-s
+;; http://help.autodesk.com/view/ACD/2016/ENU/?guid=GUID-5C9DC003-3DD2-4770-95E7-7E19A4EE19A1  
+;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
 ;; 清理两道墙线相交之间的线(wall-x)
 ;; inters  获取两条线的交点
 ;; polar  Returns the UCS 3D point at a specified angle and distance from a point
