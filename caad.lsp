@@ -6,8 +6,7 @@
 
 ;; wall & openning
 (load "wallx.lsp")
-;只支持visul lisp
-;(load "wall.lsp")
+(load "wall.lsp")
 
 ;; symbole
 (load "bubble.lsp")
