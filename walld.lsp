@@ -2,7 +2,7 @@
 ;;; Main function
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun c:wall (/ p1 plist w1 w1a w2 w2a w1lst w2lst anglist seglist seg1list seg2list)
+(defun c:walld (/ p1 plist w1 w1a w2 w2a w1lst w2lst anglist seglist seg1list seg2list)
   "设置wall的宽度"
   (setq w1  10
 	w1a 10
@@ -35,8 +35,8 @@
   (setq seg2list (segxlist seglist anglist (- 1) w2lst))
   (setq seg1list (intlst seg1list))
   (setq seg2list (intlst seg2list))
-  (entmakepolyline seg1list)
-  (entmakepolyline seg2list)
+  (Geom-Entmakepolyline seg1list 0)
+  (Geom-Entmakepolyline seg2list 0)
 )
 
 ;;;getpointlist
@@ -126,19 +126,6 @@
   (if (equal b c)
     b
     (inters a b c d nil)
-  )
-)
-
-;; function of entmake lwpolyline 
-(defun entmakepolyline (lst)
-  (entmakex 
-      (append
-	      (list '(0 . "LWPOLYLINE")
-		    (cons 90 (length lst)) 
-            '(70 . 0) ;;;1 is closed
-	      ) ;_  list
-	      (mapcar '(lambda (x) (cons 10 x)) lst)
-	  ) ;_  append
   )
 )
 

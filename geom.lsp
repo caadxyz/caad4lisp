@@ -14,6 +14,31 @@
     )
 )
 
+;; function of entmake lwpolyline 
+;; isClosed: 0 or 1  , 1=closed
+(defun Geom-Entmakepolyline (pointList isClosed / conf-isClosed)
+  (setq conf-isClosed (cons 70 isClosed)) 
+  (if (= Conf-AutoCAD-Version 2015) 
+    (entmakex 
+      (append
+          (list '(0 . "LWPOLYLINE") '(100 . "AcDbEntity") '(100 . "AcDbPolyline")
+		    (cons 90 (length pointList)) 
+            conf-isClosed
+	      ) ;_  list
+	      (mapcar '(lambda (x) (cons 10 x)) pointList)
+	  ) ;_  append
+    )
+    (entmakex 
+      (append
+          (list '(0 . "LWPOLYLINE")
+		    (cons 90 (length pointList)) 
+            conf-isClosed
+	      ) ;_  list
+	      (mapcar '(lambda (x) (cons 10 x)) pointList)
+	  ) ;_  append
+    ))
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;retrieve the Entity Data;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
