@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun c:wall (/ p1 plist w1 w1a w2 w2a w1lst w2lst anglist seglist seg1list seg2list)
-  ;设置wall的宽度
+  "设置wall的宽度"
   (setq w1  10
 	w1a 10
 	w2  20
@@ -28,6 +28,7 @@
 		  (cdr plist)
 		)
   )
+  
   (setq w1lst (makew w1 w1a (length seglist)))
   (setq w2lst (makew w2 w2a (length seglist)))
   (setq seg1list (segxlist seglist anglist 1 w1lst))
@@ -45,7 +46,7 @@
   (setq i 0)
 
   (while (setq p (getpoint p1))
-    ;;grdraw: Draws a vector between two points, in the current viewport  
+    "grdraw: Draws a vector between two points, in the current viewport"
     (grdraw p1 p 9)
     (tempgrdraw p1 p i w1lst w2lst)
     (setq plist (append plist (list p)))
@@ -55,7 +56,7 @@
   plist
 )
 
-;;;tempdraw
+;; tempdraw
 (defun tempgrdraw (p1 p2 n lst1 lst2 / ang)
   (setq ang (angle p1 p2))
   (grdraw (polar p1 (+ ang (* pi 0.5)) (1- (nth (* n 2) lst1)))

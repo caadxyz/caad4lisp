@@ -43,24 +43,24 @@
   ;;;;;;;;;;;;;;;;;;; 
   ;;断开交点  start
   ;;;;;;;;;;;;;;;;;;;;;
-  ;
-  ; dist1为pt0到wall1两条线的距离
-  ; ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
-  ;
-  ; dist2为pt0到wall2两条线的距离
-  ; ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
+  ;;
+  ;; dist1为pt0到wall1两条线的距离
+  ;; ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
+  ;;
+  ;; dist2为pt0到wall2两条线的距离
+  ;; ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
   (defun NEATX1 (dist1 dist2)
     (cond
       ((cdr dist1)
        (Util-Working)
        (neatx2
-        ; 1st wall - line 1
+        ;; 1st wall - line 1
         (nth (cadar dist1) wall1)
-        ; 1st wall - line 2
+        ;; 1st wall - line 2
         (nth (cadr (last dist1)) wall1)
-        ; 2nd wall - line 1
+        ;; 2nd wall - line 1
         (nth (cadar dist2) wall2)
-        ; 2nd wall - line 2
+        ;; 2nd wall - line 2
         (nth (cadr (last dist2)) wall2)
         )
        )
@@ -83,7 +83,7 @@
          pt5 (cadr l0)
          pt6 (caddr l0)
          )
-        ; 断开线条
+        ;; 断开线条
         (command ".BREAK"
          (car l0)
          (inters pt5 pt6 pt1 pt2)
@@ -96,10 +96,6 @@
      (list b2 a2)
      )
     )
-  
-  ;(defun NUKENZ (x)
-  ;  (cdr (reverse (cdr x)))
-  ;) 
   ;;;;;;;;;;;;;;;;
   ;;断开交点  end
   ;;;;;;;;;;;;;;;;
@@ -177,21 +173,27 @@
   )
 
   
-  ;---------------
-  ; Main Function
-  ;---------------
+  ;;---------------
+  ;; Main Function
+  ;;---------------
   (setq >90 (/ pi 2))
   ;; CmdEcho:  Controls whether prompts and input are echoed during the AutoLISP command function.
   (setvar "CmdEcho" 0)
-  ;; Blipmode is an obsolete AutoCAD function that, in earlier versions of the software, left a mark in your drawing on points that you specified. The marks are visual references and do not appear in printouts of the drawing. Though Blipmode is obsolete, it is still an available function in AutoCAD if you turn it on or import a project saved using an older version of the software that had Blipmode enabled. To remove the blips, you need to disable the Blipmode function in AutoCAD.
+  ;; Blipmode is an obsolete AutoCAD function that, in earlier versions of the software,
+  ;; left a mark in your drawing on points that you specified.
+  ;; The marks are visual references and do not appear in printouts of the drawing.
+  ;; Though Blipmode is obsolete,
+  ;; it is still an available function in AutoCAD if you turn it on or
+  ;; import a project saved using an older version of the software that had Blipmode enabled.
+  ;; To remove the blips, you need to disable the Blipmode function in AutoCAD.
   (setvar "BlipMode" 0)
   (princ "\rLoaded. ")
 
+  ;;------------------------------------
+  ;; 鼠标框选4lines start  并且初始pt0 pt1
+  ;;-------------------------------------
   (while
-
-    ;------------------------------------
-	; 鼠标框选4lines start  并且初始pt0 pt1
-	;-------------------------------------
+      
       (progn
         (initget "Select")
         ;; 获取第一点pt0
@@ -222,9 +224,9 @@
     
     (princ "\nWorking ")
     (command ".UNDO" "Group")
-    ;------------------------------------
-	; 鼠标框选4lines end
-	;------------------------------------
+    ;;------------------------------------
+	;; 鼠标框选4lines end
+	;;------------------------------------
     
     (ssfunc ss
             '(lambda ()
