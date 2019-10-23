@@ -85,19 +85,15 @@
          )
 
         ;; 断开线条
-        ;;(command ".BREAK" (car l0)
-        ;;    (inters pt5 pt6 pt1 pt2)
-        ;;    (inters pt5 pt6 pt3 pt4))
         (command-s ".BREAK" (car l0) "F"
             (inters pt5 pt6 pt1 pt2)
             (inters pt5 pt6 pt3 pt4))
 
 	    )
        )
-     (list (list a1 a2) (list b1 b2))
-     (list b1 a1)
-     (list b2 a2)
-     )
+     (list (list a1 a2) (list b1 b2)) 
+     (list b1 a1) 
+     (list b2 a2))
     )
   ;;;;;;;;;;;;;;;;
   ;;断开交点  end
