@@ -1,7 +1,7 @@
-### a lisp tool for architectural design
+### a autolisp tool for architectural design
 
-powered by caad.xyz  v0.001  
-required: autolisp enviroment
+powered by caad.xyz  v0.001 alpha 
+required: autolisp
 
 Change the setting in config.lsp file:
 
