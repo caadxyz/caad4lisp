@@ -18,7 +18,7 @@
 ;; isClosed: 0 or 1  , 1=closed
 (defun Geom-Entmakepolyline (pointList isClosed / conf-isClosed)
   (setq conf-isClosed (cons 70 isClosed)) 
-  (if (= Conf-AutoCAD-Version 2015) 
+  (if (= Conf-AutoCAD-Version "2015+") 
     (entmakex 
       (append
           (list '(0 . "LWPOLYLINE") '(100 . "AcDbEntity") '(100 . "AcDbPolyline")
