@@ -5,7 +5,7 @@ required: autolisp
 
 Change the setting in config.lsp file:
 
-if your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version "2015+")`, 
+If your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version "2015+")`,   
 otherwise `(setq Conf-AutoCAD-Version "2015-")`
 
 * **walld**: draw double lines  
