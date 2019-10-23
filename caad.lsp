@@ -6,7 +6,7 @@
 (load "geom.lsp")
 
 ;; wall & openning
-;(load "wallx.lsp")
+(load "wallx.lsp")
 (load "walld.lsp")
 
 ;; symbole
