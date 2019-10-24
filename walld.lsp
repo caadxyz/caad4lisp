@@ -102,12 +102,12 @@
         )
   ;; (princ "\n----seglist-----\n")
   ;; (princ seglist)
-        
   (setq seg1list (segxlist seglist anglist  1 w1))
   (setq seg2list (segxlist seglist anglist -1 w2))
-  (Geom-Entmakepolyline (intlst seg1list) 0)
-  (Geom-Entmakepolyline (intlst seg2list) 0)
-
+  ;; (Geom-EntmakexPolyline (intlst seg1list) 0)
+  ;; (Geom-EntmakexPolyline (intlst seg2list) 0)
+  (Geom-EntmakeLines (intlst seg1list) )
+  (Geom-EntmakeLines (intlst seg2list) )
 ) ;_ main funcation
 
 

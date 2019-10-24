@@ -9,5 +9,5 @@
     (setq plist (append plist (list p2)))
     (setq p1 p2)
   )
-  (princ plist)
+  plist
 )

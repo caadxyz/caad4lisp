@@ -1,36 +1,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 清理两道墙线相交之间的线(wall-x)
 ;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; Util.lsp
 ;; Util-Working: 运行进程debugger
-;;
-;; lisp函数
-;; Elements from a List
-;; Car:      (X co-ordinate or 1st element)
-;; Cdr:      (second and remaining elements)
-;; nth:      Returns the nth element of a list
-;; append:   连接两个list
-;; list:     生成一个list
-;; mapcar:   perform a "function" on each element of the list
-;;
-;; lambda:   in-line function
-;;
-;; progn:    Evaluates each expression sequentially and returns the value of the last expression   
-;;
-;; initget:  Establishes various options for use by the next getxxx function.
-
-;; inters:   获取两条线的交点
-;; polar:    Returns the UCS 3D point at a specified angle and distance from a point
-;; minusp:   Verifies that a number is negative 
-;; ssname:   Returns the object (entity) name of the indexed element of a selection set
-;; ssget:    Creates a selection set from the selected object
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parameter: 
-;; /:      local variable
 ;; >90:    90 degree angle
 (defun c:wallx (/ >90 dists edata etype get head i l0
                 merge neatx1 perp perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
@@ -67,34 +45,41 @@
       (T (princ "\rComplete."))
       )
     )
+  
   (Util-Working)
+  
+  ;; a1: walla-line1
+  ;; a2: walla-line2
+  ;; b1: wallb-line1
+  ;; b2: wallb-line2
   (defun NEATX2 (a1 a2 b1 b2)
     (mapcar
-     '(lambda (x l1 l2)
+     '(lambda (wallx l1 l2)
        (Util-Working)
        (setq
-        pt1 (cadr l1)
+        pt1 (cadr  l1)
         pt2 (caddr l1)
-        pt3 (cadr l2)
+        pt3 (cadr  l2)
         pt4 (caddr l2)
 	    )
-       (foreach l0 x
+       (foreach l0 wallx
         (setq
-         pt5 (cadr l0)
+         pt5 (cadr  l0)
          pt6 (caddr l0)
          )
-
-        ;; 断开线条
+        "断开线条"
         (command-s ".BREAK" (car l0) "F"
-            (inters pt5 pt6 pt1 pt2)
-            (inters pt5 pt6 pt3 pt4))
-
-	    )
-       )
+         (inters pt5 pt6 pt1 pt2)
+         (inters pt5 pt6 pt3 pt4))
+        )
+       
+       ) ;_ lambda
+     
      (list (list a1 a2) (list b1 b2)) 
      (list b1 a1) 
-     (list b2 a2))
-    )
+     (list b2 a2)
+     ) ;_ carmap
+    ) ;_ defun
   ;;;;;;;;;;;;;;;;
   ;;断开交点  end
   ;;;;;;;;;;;;;;;;
@@ -337,7 +322,6 @@
        ;; Sort distance index
        (setq dists (mapcar 'sort dists))
        (setq wall1 (car walls) wall2 (cadr walls))
-       
        
        ;;---dists: 对walls的每条line进行由近到远的排序------
        ;;(
