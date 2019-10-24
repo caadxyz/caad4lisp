@@ -17,9 +17,8 @@
         )
   )
 
-(defun Util-HelloWorld ()
-  (princ "hello world")
-  (setq greeding
-        '(1 2 3)
-        )
+(defun Util-IsOdd (number)
+  ;; The REM function divides the first number on the second number and returns the reminder.
+  ;; 判断number是否是奇数
+  (= (rem number 2) 1) 
   )
