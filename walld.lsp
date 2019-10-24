@@ -7,15 +7,12 @@
 ;; seg1list: ( w1seglist1  w1seglist2 ...)
 ;; seg2list: ( w2seglist1  w2seglist2 ...)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defun c:walld (/ w1 w2 plist anglist seglist seg1list seg2list
                 getpointlist segxlist intlst
 )
 
   "set the wall width"
-  (setq w1  10
-		w2  20
-	    )
+  (setq w1  10 w2  20)
 
   "getpointlist"  
   (defun getpointlist (w1 w2 / plist  p1 p2)
@@ -24,7 +21,7 @@
     (while (setq p2 (getpoint p1 "\nSpecify next point: " ))
       ;; grdraw: Draws a vector between two points, in the current viewport
       ;; (grdraw p1 p2 9)
-      (tempgrdraw p1 p2 w1 w2)
+      (wall-grdraw p1 p2 w1 w2)
       (setq plist (append plist (list p2)))
       (setq p1 p2)
       )
@@ -108,15 +105,14 @@
         
   (setq seg1list (segxlist seglist anglist  1 w1))
   (setq seg2list (segxlist seglist anglist -1 w2))
- 
   (Geom-Entmakepolyline (intlst seg1list) 0)
   (Geom-Entmakepolyline (intlst seg2list) 0)
 
 ) ;_ main funcation
 
 
-;; tempdraw
-(defun tempgrdraw (p1 p2 w1 w2 / ang)
+;; temp wall-grdraw
+(defun wall-grdraw (p1 p2 w1 w2 / ang)
   (setq ang (angle p1 p2))
   (grdraw (polar p1 (+ ang (* pi 0.5)) w1 )
           (polar p2 (+ ang (* pi 0.5)) w1) 251
