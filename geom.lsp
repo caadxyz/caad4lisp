@@ -2,29 +2,18 @@
 ;;;几何算法;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; todo autolispy有内置的 (angle pt1 pt2)
-;; %i: (angle '(1.0 1.0) '(1.0 4.0))
-;; %o: 1.5708
-;; %i: (angle '(5.0 1.33) '(2.4 1.33))
-;; %o: 3.14159
-;; %i: (angle '(0 0) '(0 1))
-;; %o: 1.57079633
-;; %i: (angle '(0 1) '(0 0))
-;; %o: 4.71238898
-;;
-;; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
-(defun Geom-GetSlope (pt1 pt2 / x)
-    ; Vertical?
-    (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Fuzz)
-        ; Yes, return NIL
-        nil
-        ; No, compute slope
-        ; Converts a number into a string
-        ; (rtos number [mode [precision]])
-        (rtos (/ (abs (- (cadr pt1) (cadr pt2))) x) 2 4)
-    )
-)
+
+;;;;;;;;;;;;;;; build in function ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (angle pt1 pt2) ;Returns an angle in radians of a line defined by two endpoints
+;; (distance pt1 pt2) ;Returns the 3D distance between two points
+;; (inters pt1 pt2 pt3 pt4 [onseg]) ;Finds the intersection of two lines
+;; (osnap pt mode) ;Returns a 3D point that is the result of applying an
+;;                  Object Snap mode to a specified point
+;; (polar pt ang dist) ;Returns the UCS 3D point at a specified angle
+;;                     and distance from a point
+;; (textbox elist) ;Measures a specified text object,
+;;                 and returns the diagonal coordinates of a box that encloses the text
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; function: entmakex lwpolyline 
@@ -56,26 +45,78 @@
 ;; function: entmake lines
 (defun Geom-EntmakeLines ( pointList / segmentList )
   (setq segmentList (mapcar
-                     '(lambda (x y)
-                       (cons x (list y))
+                     '(lambda (p0 p1)
+                       (cons p0 (list p1))
                        )
                      (reverse (cdr (reverse pointList)))
                      (cdr pointList)
                      )
         )
   ;; (princ segmentList)
-  (mapcar '(lambda(x)
+  (mapcar '(lambda(segment)
             (entmake (list
                       '(0 . "LINE")
-                      (cons 10 (car x))
-                      (cons 11 (cdr x))
+                      (cons 10 (car segment)) ; segmentPoint0
+                      (cons 11 (cdr segment)) ; segmentPoint1
                       )
              )
             ;; (princ x)
             )
           segmentList )
-  ) ;_ geom-entmakelines
+  ) ;_ defun
+ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 求pt0到通过pt1及pt2的垂直点
+(defun Geom-PerpPoint (pt0 pt1 pt2)
+    (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) (/ pi 2) ) 1.0) nil)
+)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;retrieve the Entity Data;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Geom2D ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun Geom2D-Line-GetPointAtParam (line param / p0 p1 )
+  (setq p0 (car  line))
+  (setq p1 (cadr line))
+  ( (+ param*(car p0)  (1-param)*(car p1)) (+ param*(cadr p0) (1-param)*(cadr p1))   )  
+  )
+
+
+(defun Geom2D-Line-GetParamAtIntersection(line0 line1 / l0p0 l0p1 l1p0 l1p1
+                                        intersPoint  param )
+  (setq l0p0 (car   line0))
+  (setq l0p1 (cadr  line0))
+  (setq l1p0 (car   line1))
+  (setq l1p1 (cadr  line1))
+  (setq intersPoint (inters l0p0 l0p1 l1p0 l1p1 nil))
+  (setq param nil)
+  
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; autolisp 内置 (angle pt1 pt2)
+;; %i: (angle '(1.0 1.0) '(1.0 4.0))
+;; %o: 1.5708
+;; %i: (angle '(5.0 1.33) '(2.4 1.33))
+;; %o: 3.14159
+;; %i: (angle '(0 0) '(0 1))
+;; %o: 1.57079633
+;; %i: (angle '(0 1) '(0 0))
+;; %o: 4.71238898
+;;
+;; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
+(defun Geom2D-GetSlope (pt1 pt2 / x)
+    ; Vertical?
+    (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Fuzz)
+        ; Yes, return NIL
+        nil
+        ; No, compute slope
+        ; Converts a number into a string
+        ; (rtos number [mode [precision]])
+        (rtos (/ (abs (- (cadr pt1) (cadr pt2))) x) 2 4)
+    )
+)
+
+
