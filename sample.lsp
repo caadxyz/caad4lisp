@@ -18,9 +18,17 @@
 (setq l1 '((121.02304632 1) (171.02304632 2)))
 (setq l2 '((102.55026166 1) (52.55026166 2)))
 
-(defun sort (l)
-(if (< (caar l) (caar (cdr l)) )
-    l  
-    (reverse l)
+(defun sort (lst)
+  (if (< (caar lst) (caar (cdr lst) ) )
+     lst 
+     (reverse lst)
+  )
 )
+
+;;; 中文乱码的解决  
+;;; http://bbs.mjtd.com/thread-178359-1-1.html  
+(princ "\U+6D4B\U+8BD5")
+
+(princ "\n 忙得很")
+(princ "abc  忙得很")
 
