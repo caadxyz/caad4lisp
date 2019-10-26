@@ -1,7 +1,7 @@
 (princ "\n ---caad.lsp loading---\n")
 
 
-;caadåº“æ–‡ä»¶
+;caad¿âÎÄ¼þ  
 (load "config.lsp")
 (load "util.lsp")
 (load "geom.lsp")

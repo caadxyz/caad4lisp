@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; æ¸…ç†ä¸¤é“å¢™çº¿ç›¸äº¤ä¹‹é—´çš„çº¿(wall-x)
-;; issue: ä¸­æ–‡ä¹±ç åœ¨autocad 2006 ä¸­æ‰§è¡Œé”™è¯¯, åˆ é™¤ä¸­æ–‡å¯ä»¥è¢«æ‰§è¡Œ
+;; ÇåÀíÁ½µÀÇ½ÏßÏà½»Ö®¼äµÄÏß(wall-x)
+;; issue: ÖĞÎÄÂÒÂëÔÚautocad 2006 ÖĞÖ´ĞĞ´íÎó, É¾³ıÖĞÎÄ¿ÉÒÔ±»Ö´ĞĞ
 ;;
 ;; Util.lsp
-;; Util-Working: è¿è¡Œè¿›ç¨‹debugger
+;; Util-Working: ÔËĞĞ½ø³Ìdebugger
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -20,13 +20,13 @@
   
   (Util-Working)
   ;;;;;;;;;;;;;;;;;;; 
-  ;;æ–­å¼€äº¤ç‚¹  start
+  ;;¶Ï¿ª½»µã  start
   ;;;;;;;;;;;;;;;;;;;;;
   ;;
-  ;; dist1ä¸ºpt0åˆ°wall1ä¸¤æ¡çº¿çš„è·ç¦»
+  ;; dist1Îªpt0µ½wall1Á½ÌõÏßµÄ¾àÀë
   ;; ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
   ;;
-  ;; dist2ä¸ºpt0åˆ°wall2ä¸¤æ¡çº¿çš„è·ç¦»
+  ;; dist2Îªpt0µ½wall2Á½ÌõÏßµÄ¾àÀë
   ;; ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
   (defun neatx1 (dist1 dist2)
     (cond
@@ -65,12 +65,16 @@
          pt5 (cadr  l0)
          pt6 (caddr l0)
          )
-        "æ–­å¼€çº¿æ¡"
-        (command-s ".BREAK" (car l0) "F"
-         (inters pt5 pt6 pt1 pt2)
-         (inters pt5 pt6 pt3 pt4))
+        "¶Ï¿ªÏßÌõ"
+         (if (= Conf-AutoCAD-Version "2015+")
+            (command-s ".BREAK" (car l0) "F" (inters pt5 pt6 pt1 pt2) (inters pt5 pt6 pt3 pt4))
+            (command ".BREAK" (car l0)  (inters pt5 pt6 pt1 pt2) (inters pt5 pt6 pt3 pt4))
+            )
         )
-       
+
+
+
+               
        ) ;_ lambda
      
      (list (list a1 a2) (list b1 b2)) 
@@ -79,7 +83,7 @@
      ) ;_ carmap
     ) ;_ defun
   ;;;;;;;;;;;;;;;;
-  ;;æ–­å¼€äº¤ç‚¹  end
+  ;;¶Ï¿ª½»µã  end
   ;;;;;;;;;;;;;;;;
 
   
@@ -88,7 +92,7 @@
   ;; after sorting: ((121.02304632 1) (171.02304632 2))
   ;; befor sorting: ((102.55026166 1) (52.55026166 2))
   ;; after sorting: ((52.55026166 2) (102.55026166 1))
-  ;; æ ¹æ®æ•°ç»„ä¸­ç¬¬ä¸€ä¸ªæ•°å€¼å¤§å°å¯¹æ•°ç»„è¿›è¡Œæ’åº
+  ;; ¸ù¾İÊı×éÖĞµÚÒ»¸öÊıÖµ´óĞ¡¶ÔÊı×é½øĞĞÅÅĞò
   (defun sort (l)
     (if (< (caar l) (caar (cdr l)) )
         l  
@@ -97,7 +101,7 @@
   )
 
   (Util-Working)
-  ;; å¯¹æ¡†é€‰çš„4æ ¹ç›´çº¿(ss)ä¸­æ¯ä¸€æ ¹ç›´çº¿éƒ½é€šè¿‡å…¶åç§°(ename)åŠ è½½å‡½æ•°func
+  ;; ¶Ô¿òÑ¡µÄ4¸ùÖ±Ïß(ss)ÖĞÃ¿Ò»¸ùÖ±Ïß¶¼Í¨¹ıÆäÃû³Æ(ename)¼ÓÔØº¯Êıfunc
   (defun ssfunc  (ss func / i ename)
     (setq i -1)
     (while (setq ename (ssname ss (setq i (1+ i))))
@@ -123,13 +127,13 @@
   (princ "\rLoaded. ")
 
   ;;------------------------------------
-  ;; é¼ æ ‡æ¡†é€‰4lines start  å¹¶ä¸”åˆå§‹pt0 pt1
+  ;; Êó±ê¿òÑ¡4lines start  ²¢ÇÒ³õÊ¼pt0 pt1
   ;;-------------------------------------
   (while
       
       (progn
         (initget "Select")
-        ;; è·å–ç¬¬ä¸€ç‚¹pt0
+        ;; »ñÈ¡µÚÒ»µãpt0
         (setq pt0 (getpoint "\nSelect objects/<First corner>: "))
         )
     
@@ -142,9 +146,9 @@
       ((eq (type pt0) 'LIST)
        (initget 33)
        (setq
-        ;; è·å–ç¬¬äºŒç‚¹pt1
+        ;; »ñÈ¡µÚ¶şµãpt1
         pt1 (getcorner pt0 "\nOther corner: ")
-        ;; é€šè¿‡ä¸¤ç‚¹æ¡†é€‰ç‰©ä½“
+        ;; Í¨¹ıÁ½µã¿òÑ¡ÎïÌå
         ss (ssget "C" pt0 pt1)
         )
        )
@@ -154,19 +158,19 @@
     (princ ss)
     (command ".UNDO" "Group")
     ;;-----------------------------------
-    ;; é¼ æ ‡æ¡†é€‰4lines end
+    ;; Êó±ê¿òÑ¡4lines end
     ;;------------------------------------
     
     (ssfunc ss
             '(lambda ()
               (Util-Working)
-              ;; é€šè¿‡enameè·å–ç›´çº¿çš„ç›¸å…³æ•°æ®edata
+              ;; Í¨¹ıename»ñÈ¡Ö±ÏßµÄÏà¹ØÊı¾İedata
               (setq edata (entget ename))
               ;; (princ "\n------raw data------\n")
               ;; (princ edata)
               
-              ;; å¦‚æœæ˜¯â€œLINEâ€è€…è¿è¡Œï¼Œ å¦‚æœä¸æ˜¯åˆ™ä¸‹ä¸€ä¸ªå…ƒç´ 
-              ;; ç»“æœä¸ºwallsæ•°ç»„(wall1 wall2)
+              ;; Èç¹ûÊÇ¡°LINE¡±ÕßÔËĞĞ£¬ Èç¹û²»ÊÇÔòÏÂÒ»¸öÔªËØ
+              ;; ½á¹ûÎªwallsÊı×é(wall1 wall2)
               ;; wall(slope edata1 edate2)
               (if (= (Util-GetDataByKey 0 edata) "LINE")
                   (setq
@@ -221,8 +225,8 @@
        )
       (T
        ;;------------------------------------
-       ;; Create List of Perpendiculars(å‚ç›´çº¿)
-       ;; è·å–pt0å‚ç›´ä¸wallsçš„å‚ç›´ç‚¹ï¼ˆwall1-ps,wall2-psï¼‰
+       ;; Create List of Perpendiculars(´¹Ö±Ïß)
+       ;; »ñÈ¡pt0´¹Ö±ÓëwallsµÄ´¹Ö±µã£¨wall1-ps,wall2-ps£©
        ;;------------------------------------
        (setq perps
              (mapcar
@@ -241,7 +245,7 @@
              )
        ;;--------------------------
        ;; Create List of Distances
-       ;; è·å–pt0å‚ç›´ä¸wallsçš„å‚ç›´è·ç¦»å¹¶å¯¹æ¯é“å¢™çš„å¢™çº¿è¿›è¡Œç¼–å·ï¼ˆwall1-dist,wall2-distï¼‰
+       ;; »ñÈ¡pt0´¹Ö±ÓëwallsµÄ´¹Ö±¾àÀë²¢¶ÔÃ¿µÀÇ½µÄÇ½Ïß½øĞĞ±àºÅ£¨wall1-dist,wall2-dist£©
        ;; wall1-dist(wall1-dist1, wall1-dist2)
        ;; wall1-dist(wall1-dist1, wall1-dist2)
        ;;--------------------------
@@ -280,7 +284,7 @@
          wall2 (cadr walls)
        )
        
-       ;;---dists: å¯¹wallsçš„æ¯æ¡lineè¿›è¡Œç”±è¿‘åˆ°è¿œçš„æ’åº------
+       ;;---dists: ¶ÔwallsµÄÃ¿Ìõline½øĞĞÓÉ½üµ½Ô¶µÄÅÅĞò------
        ;;(
        ;;  ((125.34581575 2) (175.34581575 1))  ;(car dists)  (wall1line2-dist,wall1line1-dist)
        ;;  ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)

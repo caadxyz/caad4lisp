@@ -25,10 +25,10 @@
   )
 )
 
-;;; ä¸­æ–‡ä¹±ç çš„è§£å†³  
+
 ;;; http://bbs.mjtd.com/thread-178359-1-1.html  
 (princ "\U+6D4B\U+8BD5")
 
-(princ "\n å¿™å¾—å¾ˆ")
-(princ "abc  å¿™å¾—å¾ˆ")
-
+(princ "Âíº£¶«" )
+(princ "»¹ÊÇÂíº£¶«")
+;; (princ "abc")

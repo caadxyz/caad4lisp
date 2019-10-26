@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;å‡ ä½•ç®—æ³•;;;;;;;;;;;;;;;;;;;;
+;;;¼¸ºÎËã·¨;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -55,9 +55,9 @@
   ;; (princ segmentList)
   (mapcar '(lambda(segment)
             (entmake (list
-                      '(0 . "LINE")
+                      (cons  0 "LINE")
                       (cons 10 (car segment)) ; segmentPoint0
-                      (cons 11 (cdr segment)) ; segmentPoint1
+                      (cons 11 (cadr segment)) ; segmentPoint1
                       )
              )
             ;; (princ x)
@@ -66,7 +66,7 @@
   ) ;_ defun
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; æ±‚pt0åˆ°é€šè¿‡pt1åŠpt2çš„å‚ç›´ç‚¹
+;; Çópt0µ½Í¨¹ıpt1¼°pt2µÄ´¹Ö±µã
 (defun Geom-PerpPoint (pt0 pt1 pt2)
     (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) (/ pi 2) ) 1.0) nil)
 )
@@ -150,7 +150,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; autolisp å†…ç½® (angle pt1 pt2)
+;; autolisp ÄÚÖÃ (angle pt1 pt2)
 ;; %i: (angle '(1.0 1.0) '(1.0 4.0))
 ;; %o: 1.5708
 ;; %i: (angle '(5.0 1.33) '(2.4 1.33))
@@ -160,7 +160,7 @@
 ;; %i: (angle '(0 1) '(0 0))
 ;; %o: 4.71238898
 ;;
-;; ç®—æ–œåº¦  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
+;; ËãĞ±¶È  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
 (defun Geom2D-GetSlope (pt1 pt2 / x)
     ; Vertical?
     (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Fuzz)

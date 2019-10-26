@@ -2,7 +2,7 @@
 ;; and still be considered equal.
 (setq Util-Fuzz 1.0e-6)
 
-;; debugç¨‹åºåŠ è½½è¿›ç¨‹æƒ…å†µ
+;; debug³ÌĞò¼ÓÔØ½ø³ÌÇé¿ö
 (setq @Util-Working
       '("\\" "|" "/" "-"))
 (defun Util-Working ()
@@ -19,7 +19,7 @@
 
 (defun Util-IsOdd (number)
   ;; The REM function divides the first number on the second number and returns the reminder.
-  ;; åˆ¤æ–­numberæ˜¯å¦æ˜¯å¥‡æ•°
+  ;; ÅĞ¶ÏnumberÊÇ·ñÊÇÆæÊı
   (= (rem number 2) 1) 
   )
 
@@ -28,18 +28,18 @@
 ;;;retrieve the Entity Data;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; å¯¹å·²ç»è·å¾—çš„entryDataçš„ç›¸å…³æ•°æ®è·å¾—ä¸keyç›¸å…³çš„æ•°æ®æˆ–æ•°ç»„
-;; ( (-1Â .Â <EName:Â Â 00006000035819e0>)Â 
-;;   (0Â .Â LINE)Â (5Â .Â 173)Â  
-;;   (330Â .Â <EName:Â Â 000060000371b5d0>)Â  
-;;   (100Â .Â AcDbEntity)Â 
-;;   (67Â .Â 0)Â  
-;;   (410Â .Â Model)Â  
-;;   (8Â .Â 0)Â 
-;;   (100Â .Â AcDbLine)Â  
-;;   (10Â -24.8581413Â -12.28693165Â 0.0)Â 
-;;   (11Â 137.81192438Â 79.25036151Â 0.0)Â 
-;;   (210Â 0.0Â 0.0Â 1.0)
+;; ¶ÔÒÑ¾­»ñµÃµÄentryDataµÄÏà¹ØÊı¾İ»ñµÃÓëkeyÏà¹ØµÄÊı¾İ»òÊı×é
+;; ( (-1?.?<EName:??00006000035819e0>)?
+;;   (0?.?LINE)?(5?.?173)? 
+;;   (330?.?<EName:??000060000371b5d0>)? 
+;;   (100?.?AcDbEntity)?
+;;   (67?.?0)? 
+;;   (410?.?Model)? 
+;;   (8?.?0)?
+;;   (100?.?AcDbLine)? 
+;;   (10?-24.8581413?-12.28693165?0.0)?
+;;   (11?137.81192438?79.25036151?0.0)?
+;;   (210?0.0?0.0?1.0)
 ;; )
 (defun Util-GetDataByKey (key entryData)
 (if (atom key)
@@ -49,8 +49,8 @@
 )
 
 
-;; entryData æ˜¯å¦åŒ…å«æœ‰matchçš„æ•°æ®ç±»å‹typeçš„ä¿¡æ¯
-;; match å¯ä»¥æ˜¯typeå…ƒç´ ä¹Ÿå¯ä»¥æ˜¯å¤šä¸ªlistç»„æˆçš„list
+;; entryData ÊÇ·ñ°üº¬ÓĞmatchµÄÊı¾İÀàĞÍtypeµÄĞÅÏ¢
+;; match ¿ÉÒÔÊÇtypeÔªËØÒ²¿ÉÒÔÊÇ¶à¸ölist×é³ÉµÄlist
 (defun etype (entryData match)
     (member (Util-GetDataByKey 0 edata) (if (listp match) match (list match)))
 )

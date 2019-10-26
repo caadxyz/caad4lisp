@@ -12,7 +12,7 @@
 (defun wall-flip (w)
   )
 
-;; éœ€è¦åˆ¤æ–­è§’åº¦ï¼Œè·ç¦»å¯ä»¥ä¸ºè´Ÿå€¼ï¼Œè¡¨ç¤ºåæ–¹å‘
+;; ĞèÒªÅĞ¶Ï½Ç¶È£¬¾àÀë¿ÉÒÔÎª¸ºÖµ£¬±íÊ¾·´·½Ïò
 (defun wall-distance2point (w point / wl1dist wl2dist )
   (setq wl1dist  nil)
   (setq wl2dist  nil)
