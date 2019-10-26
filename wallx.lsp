@@ -138,7 +138,6 @@
      perps nil
      walls nil
      )
-
     (cond
       ((eq (type pt0) 'LIST)
        (initget 33)
@@ -151,15 +150,12 @@
        )
       (T (princ "\rGot4Lines."))
       )
-    (princ "\n------鼠标框选4lines----------\n")
+    (princ "\n------4lines--------------\n")
     (princ ss)
-    (princ "\n------------------------------\n")
-    
-    (princ "\nWorking ")
     (command ".UNDO" "Group")
+    ;;-----------------------------------
+    ;; 鼠标框选4lines end
     ;;------------------------------------
-	;; 鼠标框选4lines end
-	;;------------------------------------
     
     (ssfunc ss
             '(lambda ()
