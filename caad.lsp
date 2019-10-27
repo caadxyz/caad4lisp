@@ -1,8 +1,12 @@
+;; init file
+
+(setq Conf-AutoCAD-Version "2015-")
+;; (if (not command-s) (setq command-s command))
+
 (princ "\n ---caad.lsp loading---\n")
-
-
-;caad¿âÎÄ¼þ  
-(load "config.lsp")
+;; autolisp command compatibility
+(load "command-s.lsp")
+;; caad library
 (load "util.lsp")
 (load "geom.lsp")
 

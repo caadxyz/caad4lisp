@@ -2,3 +2,4 @@ test.lsp
 **/*.orig
 tags
 .DS_Store
+*.swp
