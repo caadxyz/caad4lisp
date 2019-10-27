@@ -1,23 +1,39 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;几何算法;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;                                                              ;;;;
+;;;;             Geometry Algorithm                               ;;;;
+;;;;                                                              ;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;; build in function ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (angle pt1 pt2) ;Returns an angle in radians of a line defined by two endpoints
-;; (distance pt1 pt2) ;Returns the 3D distance between two points
-;; (inters pt1 pt2 pt3 pt4 [onseg]) ;Finds the intersection of two lines
-;; (osnap pt mode) ;Returns a 3D point that is the result of applying an
-;;                  Object Snap mode to a specified point
-;; (polar pt ang dist) ;Returns the UCS 3D point at a specified angle
-;;                     and distance from a point
-;; (textbox elist) ;Measures a specified text object,
-;;                 and returns the diagonal coordinates of a box that encloses the text
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;; autolisp  build in geometry utility function ;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; (angle pt1 pt2)
+;; Returns an angle in radians of a line defined by two endpoints
+;;
+;; (distance pt1 pt2)
+;; Returns the 3D distance between two points
+;;
+;; (inters pt1 pt2 pt3 pt4 [onseg])
+;; Finds the intersection of two lines
+;;
+;; (osnap pt mode)
+;; Returns a 3D point that is the result of applying an
+;; Object Snap mode to a specified point
+;;
+;; (polar pt ang dist)
+;; Returns the UCS 3D point at a specified angle
+;; and distance from a point
+;;
+;; (textbox elist)
+;; Measures a specified text object,
+;; and returns the diagonal coordinates of a box that encloses the text
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; function: entmakex lwpolyline 
-;; isClosed: 0 or 1  , 1=closed
+;;;; function: entmakex lwpolyline 
+;;;; isClosed: 0 or 1  , 1=closed
 (defun Geom-EntmakexPolyline (pointList isClosed / isClosedStatus)
   (setq isClosedStatus (cons 70 isClosed)) 
   (if (= Conf-AutoCAD-Version "2015+") 
@@ -41,8 +57,7 @@
     ))
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; function: entmake lines
+;;;;  function: entmake lines
 (defun Geom-EntmakeLines ( pointList / segmentList )
   (setq segmentList (mapcar
                      '(lambda (p0 p1)
@@ -65,16 +80,16 @@
           segmentList )
   ) ;_ defun
  
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 求pt0到通过pt1及pt2的垂直点
+
+;;;; 求pt0到通过pt1及pt2的垂直点
 (defun Geom-PerpPoint (pt0 pt1 pt2)
     (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) (/ pi 2) ) 1.0) nil)
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; get a point at parament from a line
-;; line: (point0 point1)
-;; param:  0-> startpoint 1-> endpoint
+
+;;;; get a point at parament from a line
+;;;; line: (point0 point1)
+;;;; param:  0-> startpoint 1-> endpoint
 (defun Geom-Line-GetPointAtParam (line param / p0 p1 )
   (Util-working)
   (setq p0 (car  line))
@@ -92,8 +107,8 @@
   )
 
 
-;; todo: test
-;; return: parament or nil
+;;;; todo: test
+;;;; return: parament or nil
 (defun Geom-Line-IsPointOnLine(line point / dx dy dz x y z  p0 p1)
   (setq p0 (car line))
   (setq p1 (cadr line))
@@ -114,8 +129,8 @@
       )
   )
 
-;; todo: test
-;; checkPoint: check point on line 0->not check, 1->check
+;;;; todo: test
+;;;; checkPoint: check point on line 0->not check, 1->check
 (defun Geom-Line-GetParamAtPoint(line point checkPoint / p0 p1 )
   (if (= checkpoint 1)
       (Geom-Line-IsPointOnLine line point)
@@ -127,10 +142,10 @@
      )
   )
   
-;; todo: test
-;; linex: (point0 point1)
-;; param0: parameter at line0
-;; param1: parameter at line1
+;;;; todo: test
+;;;; linex: (point0 point1)
+;;;; param0: parameter at line0
+;;;; param1: parameter at line1
 (defun Geom-Line-GetParamAtIntersection(line0 line1 / l0p0 l0p1 l1p0 l1p1
                                         intersPoint )
   (setq l0p0 (car   line0))
@@ -144,23 +159,27 @@
    )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Geom2D ;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; line flip
+(defun Geom-Line-Flip(entLine)
+  
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;                           Geom2D                               ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; autolisp 内置 (angle pt1 pt2)
-;; %i: (angle '(1.0 1.0) '(1.0 4.0))
-;; %o: 1.5708
-;; %i: (angle '(5.0 1.33) '(2.4 1.33))
-;; %o: 3.14159
-;; %i: (angle '(0 0) '(0 1))
-;; %o: 1.57079633
-;; %i: (angle '(0 1) '(0 0))
-;; %o: 4.71238898
-;;
-;; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
+;;;; autolisp 内置 (angle pt1 pt2)
+;;;; %i: (angle '(1.0 1.0) '(1.0 4.0))
+;;;; %o: 1.5708
+;;;; %i: (angle '(5.0 1.33) '(2.4 1.33))
+;;;; %o: 3.14159
+;;;; %i: (angle '(0 0) '(0 1))
+;;;; %o: 1.57079633
+;;;; %i: (angle '(0 1) '(0 0))
+;;;; %o: 4.71238898
+;;;;
+;;;; 算斜度  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
 (defun Geom2D-GetSlope (pt1 pt2 / x)
     ; Vertical?
     (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Fuzz)
@@ -172,5 +191,4 @@
         (rtos (/ (abs (- (cadr pt1) (cadr pt2))) x) 2 4)
     )
 )
-
 
