@@ -9,7 +9,7 @@ cross cad software:autocad corelcad ...
 ----
 
 
-* **wall**: draw double lines  
+* **walld**: draw double lines  
 * **wallx**: cleanup walls
 * **openning** 
 * **axis**

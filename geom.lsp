@@ -158,10 +158,14 @@
    (Geom-Line-GetParamAtPoint line1 intersPoint)
    )
   )
-
+;;;; todo: test
 ;;;; line flip
-(defun Geom-Line-Flip(entLine)
-  
+(defun Geom-Line-Flip(entLine / edata pointData )
+  (setq edata (entget entLine))
+  (setq pointData (Util-GetDataByKey '(10 11) edata ))
+  (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
+  (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
+  (entmod edata)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
