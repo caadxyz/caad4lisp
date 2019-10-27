@@ -6,7 +6,7 @@ required:          autolisp
 cross Platform:    mac pc  
 cross CAD software:autocad corelcad ...   
 
-setting up file: config.lsp  
+setting up file: `caad.lsp`  
 If your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version "2015+")`,   
 otherwise `(setq Conf-AutoCAD-Version "2015-")`
 
