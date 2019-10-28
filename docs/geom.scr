@@ -1,0 +1,12 @@
+@begin(section)
+@title(Geom)
+
+A autolisp architectural tool
+
+@cl:with-package[name="caad4lisp"](
+@cl:doc(function Geom-Line-Flip)
+)
+
+@end(section)
+
+

@@ -1,0 +1,13 @@
+@begin(section)
+@title(Util)
+
+A autolisp architectural tool
+
+@cl:with-package[name="caad4lisp"](
+@cl:doc(function Util-Working)
+@cl:doc(function Util-Odd?)
+)
+
+@end(section)
+
+

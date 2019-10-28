@@ -32,6 +32,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(in-package :caad4lisp)
+
 ;;;; function: entmakex lwpolyline 
 ;;;; isClosed: 0 or 1  , 1=closed
 (defun Geom-EntmakexPolyline (pointList isClosed / isClosedStatus)
@@ -161,6 +163,7 @@
 ;;;; todo: test
 ;;;; line flip
 (defun Geom-Line-Flip(entLine / edata pointData )
+  "flip a line"
   (setq edata (entget entLine))
   (setq pointData (Util-GetDataByKey '(10 11) edata ))
   (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
