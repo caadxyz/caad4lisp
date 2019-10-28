@@ -6,16 +6,12 @@ required:          autolisp
 cross platform:    Mac Windows 
 cross cad software:autocad corelcad ...   
 
-----
-
-
-* **walld**: draw double lines  
-* **wallx**: cleanup walls
-* **openning** 
-* **axis**
-* **dimension**
-
------
+**Utility**: General utility Library    
+**Geometry**: Geometric algorithm Library  
+**Wall**: architectural wall element library and drawing tools  
+**Opening**: architectural opening element drawing tools  
+**axis**: architectural axis element drawing tools  
+**dimension** architectural dimension tools  
 
 ### Install & How to use  
 
