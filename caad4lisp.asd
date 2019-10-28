@@ -5,8 +5,8 @@
   :depends-on ()
   :components (
                (:file "package")
-               (:file "util")
-               (:file "geom")
+               (:file "./src/util")
+               (:file "./src/geom")
               ) 
   :description "caad4lisp library"
 )
