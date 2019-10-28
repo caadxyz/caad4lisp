@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Geometry &ndash; caad4lisp
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-node="geometry"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-node="geometry"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-node="geometry"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">caad4lisp » Geometry</h1>
+  <article id="article" data-section="geometry">
+    <aside>
+      <ol class="toc"><li><a href="index.html" data-node="index">Index</a></li><li><a href="utility.html" data-node="utility">Utility</a></li><li><a href="geometry.html" data-node="geometry">Geometry</a></li><li><a href="wall.html" data-node="wall">Wall</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p>A autolisp architectural tool<p>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">geom-line-flip</code><code class="codex-lambda-list">(entline / edata pointdata)</code><div class="codex-docstring">flip a line</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">geom-line-getparamatintersection</code><code class="codex-lambda-list">(line0 line1 / l0p0 l0p1 l1p0 l1p1 interspoint)</code><div class="codex-docstring">get a point parameter from a line intersect with another line. 0-&gt;startpoint 1-&gt;endpoint</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">geom-line-getparamatpoint</code><code class="codex-lambda-list">(line point checkpoint / p0 p1)</code><div class="codex-docstring">get a parameter from a point on a line. 0-&gt;startpoint 1-&gt;endpoint</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">geom-line-getpointatparam</code><code class="codex-lambda-list">(line param / p0 p1)</code><div class="codex-docstring">get a point at parament from a line</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">geom-line-ispointonline</code><code class="codex-lambda-list">(line point / dx dy dz x y z p0 p1)</code><div class="codex-docstring">check a point on a line or not.</div></div></p></p>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-  Index &ndash; caad4lisp
+  Wall &ndash; caad4lisp
 </title>
     <link rel="stylesheet" href="static/style.css"/>
     
@@ -14,7 +14,7 @@
   <style>
    /* Highlight the current top-level TOC item, and hide the TOC of all other items */
 
-   .toc a[data-node="index"] {
+   .toc a[data-node="wall"] {
        color: #AD3108;
    }
 
@@ -26,11 +26,11 @@
        display: block;
    }
 
-   .toc li a[data-node="index"] + ol {
+   .toc li a[data-node="wall"] + ol {
        display: block;
    }
 
-   .toc li a[data-node="index"] + ol li {
+   .toc li a[data-node="wall"] + ol li {
        font-size: 16px;
        margin: 0 10px;
    }
@@ -43,13 +43,17 @@
   </head>
   <body>
     
-  <h1 class="doc-title">caad4lisp » Index</h1>
-  <article id="article" data-section="index">
+  <h1 class="doc-title">caad4lisp » Wall</h1>
+  <article id="article" data-section="wall">
     <aside>
       <ol class="toc"><li><a href="index.html" data-node="index">Index</a></li><li><a href="utility.html" data-node="utility">Utility</a></li><li><a href="geometry.html" data-node="geometry">Geometry</a></li><li><a href="wall.html" data-node="wall">Wall</a></li></ol>
     </aside>
     <main class="codex-section">
-      <p>A autolisp architectural tool</p>
+      <p>A autolisp architectural tool<p>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">wall-createbylines</code><code class="codex-lambda-list">(line1 line2 / res)</code><div class="codex-docstring">Create a will by two lines.</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">wall-createbypoints</code><code class="codex-lambda-list">(pointlist leftwidth rightwidth)</code><div class="codex-docstring">Create walls by points and width.</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">wall-flip</code><code class="codex-lambda-list">(wall)</code><div class="codex-docstring">Flip this wall's direction.</div></div>
+<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">wall-intersected</code><code class="codex-lambda-list">(wall1 wall2)</code><div class="codex-docstring">Trim intersected two walls</div></div></p></p>
     </main>
   </article>
   <footer>
