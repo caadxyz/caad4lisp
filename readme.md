@@ -1,17 +1,17 @@
 ### caad4lisp: a autolisp tool for architectural design
 
 version:           v0.001 dev alpha  
-powered by:        caad.xyz  
 required:          autolisp  
 cross platform:    Mac Windows   
 cross cad software:AutoCAD IntelliCAD BricsCAD ...   
+powered by:        caad.xyz  
 
-**Utility**: General utility Library    
-**Geometry**: Geometric algorithm Library  
+**Utility**: general utility Library    
+**Geometry**: geometric algorithm Library  
 **Wall**: architectural wall element library and drawing tools  
 **Opening**: architectural opening element drawing tools  
-**axis**: architectural axis element drawing tools  
-**dimension** architectural dimension tools  
+**Axis**: architectural axis element drawing tools  
+**Dimension** architectural dimension tools  
 
 ### Install & How to use  
 
