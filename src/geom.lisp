@@ -89,10 +89,10 @@
 )
 
 
-;;;; get a point at parament from a line
 ;;;; line: (point0 point1)
 ;;;; param:  0-> startpoint 1-> endpoint
 (defun Geom-Line-GetPointAtParam (line param / p0 p1 )
+  "get a point at parament from a line"
   (Util-working)
   (setq p0 (car  line))
    (setq p1 (cadr line))
@@ -112,6 +112,7 @@
 ;;;; todo: test
 ;;;; return: parament or nil
 (defun Geom-Line-IsPointOnLine(line point / dx dy dz x y z  p0 p1)
+  "check a point on a line or not."
   (setq p0 (car line))
   (setq p1 (cadr line))
 
@@ -134,6 +135,7 @@
 ;;;; todo: test
 ;;;; checkPoint: check point on line 0->not check, 1->check
 (defun Geom-Line-GetParamAtPoint(line point checkPoint / p0 p1 )
+  "get a parameter from a point on a line. 0->startpoint 1->endpoint"
   (if (= checkpoint 1)
       (Geom-Line-IsPointOnLine line point)
       )
@@ -150,6 +152,7 @@
 ;;;; param1: parameter at line1
 (defun Geom-Line-GetParamAtIntersection(line0 line1 / l0p0 l0p1 l1p0 l1p1
                                         intersPoint )
+  "get a point parameter from a line intersect with another line. 0->startpoint 1->endpoint"
   (setq l0p0 (car   line0))
   (setq l0p1 (cadr  line0))
   (setq l1p0 (car   line1))

@@ -4,4 +4,4 @@
               :authors ("mahaidong")
               :output-format (:type :multi-html
                               :template :minima)
-              :sources ("index.scr" "util.scr" "geom.scr" ) )))
+              :sources ("index.scr" "util.scr" "geom.scr" "wall.scr" ) )))

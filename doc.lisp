@@ -1,3 +1,5 @@
+;; generate documentation
+
 (require 'asdf)
 (push #p"./" asdf:*central-registry*)
 (asdf:load-system "caad4lisp")

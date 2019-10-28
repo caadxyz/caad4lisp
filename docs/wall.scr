@@ -1,0 +1,16 @@
+@begin(section)
+@title(Wall)
+
+A autolisp architectural tool
+
+@cl:with-package[name="caad4lisp"](
+@cl:doc(function Wall-CreateByLines)
+@cl:doc(function Wall-CreateByPoints)
+@cl:doc(function Wall-Flip)
+@cl:doc(function Wall-Intersected)
+
+)
+
+@end(section)
+
+

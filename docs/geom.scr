@@ -1,10 +1,15 @@
 @begin(section)
-@title(Geom)
+@title(Geometry)
 
 A autolisp architectural tool
 
 @cl:with-package[name="caad4lisp"](
 @cl:doc(function Geom-Line-Flip)
+@cl:doc(function Geom-Line-GetParamAtIntersection)
+@cl:doc(function Geom-Line-GetParamAtPoint)
+@cl:doc(function Geom-Line-GetPointAtParam)
+@cl:doc(function Geom-Line-IsPointOnLine)
+
 )
 
 @end(section)

@@ -1,5 +1,5 @@
 (defsystem "caad4lisp"
-  :version "0.1.0"
+  :version "v0.001 alpha"
   :author "mahaidong"
   :license "MIT"
   :depends-on ()
@@ -7,6 +7,7 @@
                (:file "package")
                (:file "./src/util")
                (:file "./src/geom")
+               (:file "./src/wall")
               ) 
-  :description "caad4lisp library"
+  :description "a autolisp architectural tool"
 )
