@@ -36,3 +36,10 @@ In cad commandline type:
 
 If your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version "2015+")` in `caad.lsp` file.
 
+----
+
+### Develop & Compile
+
+* Using ASDF to setup developing environment
+* Using CODEX to compile documentation
+
