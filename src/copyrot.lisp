@@ -1,3 +1,5 @@
+(in-package :caad4lisp)
+
 ;************************************************************
 ;COPYROT.LSP               
 ;Copies selected objects and rotates them in their new 

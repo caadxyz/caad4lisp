@@ -4,12 +4,13 @@
 ;; wall package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; res: (line1Ename line2Ename angle )
+;; return: (list line1Ename line2Ename angle )
 (defun Wall-CreateByLines (line1 line2 / res)
   "Create a will by two lines."
   (setq res '())
   res
   )
+
 
 (defun Wall-Flip (wall)
   "Flip this wall's direction."

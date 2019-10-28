@@ -1,8 +1,28 @@
 @begin(section)
 @title(Index)
 
-A autolisp architectural tool
+@b(caad4lisp): a autolisp architectural tool
 
+version: v0.001 alpha
+
+author: mahaidong
+
+license: MIT
+
+
+@b(Installation)
+
+1. Download or clone the project source code.
+
+2. Add @b(caad4lisp/src) directory in Suport File Search Path of CAD Software options configutarion.
+
+3. In command-line type (load "caad.lisp")
+
+4. done.
+
+source code: @link[uri="https://github.com/caadxyz/caad4lisp"](github)
+
+powered by: source: @link[uri="http://www.caadxyz"](caad.xyz)
 @end(section)
 
 

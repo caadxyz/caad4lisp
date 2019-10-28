@@ -1,7 +1,7 @@
 @begin(section)
 @title(Geometry)
 
-A autolisp architectural tool
+@b(Geometric algorithm in autolisp)
 
 @cl:with-package[name="caad4lisp"](
 @cl:doc(function Geom-Line-Flip)

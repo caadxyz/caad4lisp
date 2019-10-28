@@ -3,10 +3,10 @@
 (require 'asdf)
 (push #p"./" asdf:*central-registry*)
 (asdf:load-system "caad4lisp")
-(princ "\n---caad4lisp loaded---\n")
+(princ "---caad4lisp loaded---")
 
 
 (require 'codex)
 (codex:document :caad4lisp)
-(princ "\n---documentation generated---\n")
+(princ "---documentation generated---")
 

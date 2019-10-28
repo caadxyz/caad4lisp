@@ -4,6 +4,8 @@
 
     #:Util-Working
     #:Util-Odd?
+    #:Util-GetDataByKey
+    #:Util-GetEntType
 
     #:Geom-Line-Flip
     #:Geom-Line-GetParamAtIntersection
@@ -17,6 +19,6 @@
     #:Wall-Intersected
 
     )
-    )
+) ;_ defpackage
 
 

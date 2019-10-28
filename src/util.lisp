@@ -37,17 +37,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; 对已经获得的entryData的相关数据获得与key相关的数据或数组
-(defun Util-GetDataByKey (key entryData)
-(if (atom key)
-    (cdr (assoc key entryData))
-    (mapcar '(lambda (x) (cdr (assoc x entryData))) key)
-    )
+;; parameter:
+;; key: element or list, 10 or '(-1 0 10 11)
+(defun Util-GetDataByKey (key entData)
+    "Get related element or list from entity data by a key"
+    (if (atom key)
+        (cdr (assoc key eData))
+        (mapcar '(lambda (x) (cdr (assoc x eData))) key)
+        )
 )
 
 ;; todo
-;; entryData 是否包含有match的数据类型type的信息
+;; entityData 是否包含有match的数据类型type的信息
 ;; match 可以是type元素也可以是多个list组成的list
 (defun Util-GetEntType (edata match)
+    "Check this entity data's type is the matching element or is  included in the matching list "
     (member (Util-GetDataByKey 0 edata) (if (listp match) match (list match)))
 )
 

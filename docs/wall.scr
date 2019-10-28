@@ -1,7 +1,7 @@
 @begin(section)
 @title(Wall)
 
-A autolisp architectural tool
+@b(A autolisp drawing tool for wall element)
 
 @cl:with-package[name="caad4lisp"](
 @cl:doc(function Wall-CreateByLines)

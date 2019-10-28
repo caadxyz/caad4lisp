@@ -1,11 +1,13 @@
 @begin(section)
 @title(Utility)
 
-A autolisp architectural tool
+@b(General autolisp utility )
 
 @cl:with-package[name="caad4lisp"](
-@cl:doc(function Util-Working)
-@cl:doc(function Util-Odd?)
+    @cl:doc(function Util-Working)
+    @cl:doc(function Util-Odd?)
+    @cl:doc(function Util-GetDataByKey)
+    @cl:doc(function Util-GetEntType)
 )
 
 @end(section)
