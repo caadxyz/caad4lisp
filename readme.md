@@ -4,7 +4,7 @@ version:           v0.001 dev alpha
 powered by:        caad.xyz  
 required:          autolisp  
 cross platform:    Mac Windows   
-cross cad software:AutoCAD IntelliCAD ...   
+cross cad software:AutoCAD IntelliCAD BricsCAD ...   
 
 **Utility**: General utility Library    
 **Geometry**: Geometric algorithm Library  
