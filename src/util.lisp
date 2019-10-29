@@ -1,8 +1,5 @@
 (in-package :caad4lisp)
 
-;; A real number defining the maximum amount by which expr1 and expr2 can differ
-;; and still be considered equal.
-(setq Util-Fuzz 1.0e-6)
 
 ;;;; debug程序加载进程情况
 (setq @Util-Working
@@ -21,11 +18,16 @@
         )
   )
 
+;; A real number defining the maximum amount by which expr1 and expr2 can differ
+;; and still be considered equal.
+(setq Util-Math-Fuzz 1.0e-6)
+
+
 ;; Parameters:
 ;; number: int
 ;; Return
 ;; bool: True, if the parameter is odd
-(defun Util-Odd? (number)
+(defun Util-Math-Odd? (number)
   "check a numer is odd or not?"
   ;; The REM function divides the first number on the second number and returns the reminder.
   (= (rem number 2) 1) 
@@ -39,7 +41,7 @@
 ;; 对已经获得的entryData的相关数据获得与key相关的数据或数组
 ;; parameter:
 ;; key: element or list, 10 or '(-1 0 10 11)
-(defun Util-GetDataByKey (key entData)
+(defun Util-Data-GetDataByKey (key entData)
     "Get related element or list from entity data by a key"
     (if (atom key)
         (cdr (assoc key eData))
@@ -50,9 +52,9 @@
 ;; todo
 ;; entityData 是否包含有match的数据类型type的信息
 ;; match 可以是type元素也可以是多个list组成的list
-(defun Util-GetEntType (edata match)
+(defun Util-Data-GetEntType (edata match)
     "Check this entity data's type is the matching element or is  included in the matching list "
-    (member (Util-GetDataByKey 0 edata) (if (listp match) match (list match)))
+    (member (Util-Data-GetDataByKey 0 edata) (if (listp match) match (list match)))
 )
 
 

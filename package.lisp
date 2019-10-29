@@ -3,9 +3,9 @@
   (:export
 
     #:Util-Working
-    #:Util-Odd?
-    #:Util-GetDataByKey
-    #:Util-GetEntType
+    #:Util-Math-Odd?
+    #:Util-Data-GetDataByKey
+    #:Util-Data-GetEntType
 
     #:Geom-EntLine-Flip
     #:Geom-Line-GetParamAtIntersection

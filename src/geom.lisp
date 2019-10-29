@@ -168,7 +168,7 @@
 (defun Geom-EntLine-Flip(entLine / edata pointData )
   "flip a entitly line"
   (setq edata (entget entLine))
-  (setq pointData (Util-GetDataByKey '(10 11) edata ))
+  (setq pointData (Util-Data-GetDataByKey '(10 11) edata ))
   (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
   (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
   (entmod edata)
@@ -208,7 +208,7 @@
 ;;;; À„–±∂»  pt1(x1 y1) pt2(x2 y2)   |(y1-y2)/(x1-x2)|
 (defun Geom2D-GetSlope (pt1 pt2 / x)
     ; Vertical?
-    (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Fuzz)
+    (if (equal (setq x (abs (- (car pt1) (car pt2)))) 0.0 Util-Math-Fuzz)
         ; Yes, return NIL
         nil
         ; No, compute slope

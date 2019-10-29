@@ -166,10 +166,10 @@
               ;; 如果是“LINE”者运行， 如果不是则下一个元素
               ;; 结果为walls数组(wall1 wall2)
               ;; wall(slope edata1 edate2)
-              (if (= (Util-GetDataByKey 0 edata) "LINE")
+              (if (= (Util-Data-GetDataByKey 0 edata) "LINE")
                   (setq
                    ;; Get relevant groups
-                   edata (Util-GetDataByKey '(-1 10 11) edata)
+                   edata (Util-Data-GetDataByKey '(-1 10 11) edata)
                    slope (Geom2D-GetSlope (cadr edata) (caddr edata))
                    walls
                    ;; Does this slope already exist in walls list

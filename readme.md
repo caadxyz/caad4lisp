@@ -27,7 +27,7 @@ powered by:        caad.xyz
 
 In cad commandline type:  
 ```
-(load "caad.lsp")
+(load "caad.lisp")
 ```
 
 If your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version "2015+")` in `caad.lsp` file.
