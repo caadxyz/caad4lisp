@@ -7,14 +7,14 @@
     #:Util-GetDataByKey
     #:Util-GetEntType
 
-    #:Geom-Line-Flip
+    #:Geom-EntLine-Flip
     #:Geom-Line-GetParamAtIntersection
     #:Geom-Line-GetParamAtPoint
     #:Geom-Line-GetPointAtParam
     #:Geom-Line-IsPointOnLine
     #:Geom-Line-GetLineAngle
     
-    #:Wall-CreateByLines
+    #:Wall-CreateByEntLines
     #:Wall-CreateByPoints
     #:Wall-Flip
     #:Wall-Intersected

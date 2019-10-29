@@ -4,3 +4,4 @@ tags
 .DS_Store
 *.swp
 \#*\#
+docs/build

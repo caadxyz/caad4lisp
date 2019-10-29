@@ -22,7 +22,7 @@ license: MIT
 
 source code: @link[uri="https://github.com/caadxyz/caad4lisp"](github)
 
-powered by: source: @link[uri="http://www.caadxyz"](caad.xyz)
+powered by: @link[uri="http://www.caad.xyz"](caad.xyz)
 @end(section)
 
 
