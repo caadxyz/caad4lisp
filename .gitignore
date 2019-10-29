@@ -5,3 +5,5 @@ tags
 *.swp
 \#*\#
 docs/build
+docs/gh-pages
+
