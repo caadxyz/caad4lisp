@@ -165,14 +165,30 @@
   )
 ;;;; todo: test
 ;;;; line flip
-(defun Geom-Line-Flip(entLine / edata pointData )
-  "flip a line"
+(defun Geom-EntLine-Flip(entLine / edata pointData )
+  "flip a entitly line"
   (setq edata (entget entLine))
   (setq pointData (Util-GetDataByKey '(10 11) edata ))
   (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
   (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
   (entmod edata)
   )
+
+
+;;;; todo: test
+;;;; parameter:
+;;;; line: (list p0 p1)
+;;;; return: The angle is measured from the X axis of the current
+;;;; construction plane, in radians, with angles increasing in
+;;;; the counterclockwise direction. If 3D points are supplied,
+;;;; they are projected onto the current construction plane.
+(defun Geom-Line-GetLineAngle(line / p0 p1)
+  "get a angle from a line"
+  (setq p0 (car   line))
+  (setq p1 (cadr  line))
+  (angle p0 p1)
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;                           Geom2D                               ;;;;;

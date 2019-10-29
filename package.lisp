@@ -12,7 +12,8 @@
     #:Geom-Line-GetParamAtPoint
     #:Geom-Line-GetPointAtParam
     #:Geom-Line-IsPointOnLine
-
+    #:Geom-Line-GetLineAngle
+    
     #:Wall-CreateByLines
     #:Wall-CreateByPoints
     #:Wall-Flip

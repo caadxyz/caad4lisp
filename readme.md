@@ -11,7 +11,7 @@ powered by:        caad.xyz
 **Wall**: architectural wall element library and drawing tools  
 **Opening**: architectural opening element drawing tools  
 **Axis**: architectural axis element drawing tools  
-**Dimension** architectural dimension tools  
+**Dimension**: architectural dimension tools  
 
 ### Install & How to use  
 
