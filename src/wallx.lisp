@@ -1,33 +1,28 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;                                          ;;;;
+;;;;     清理两道墙线相交之间的线(wall-x)     ;;;;
+;;;;                                          ;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (in-package :caad4lisp)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 清理两道墙线相交之间的线(wall-x)
-;; issue: 中文乱码在autocad 2006 中执行错误, 删除中文可以被执行
-;;
-;; Util.lsp
-;; Util-Working: 运行进程debugger
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parameter: 
 ;; >90:    90 degree angle
 (defun c:wallx (/ >90 dists edata  i l0
                 neatx1 perps pt0 pt1 pt2 pt3 pt4 pt5 pt6
                 slope sort ss ssfunc  wall1 wall2 walls
                 )
-
   (setq clayer nil)
   (princ "\nLoading -")
   
   (Util-Working)
-  ;;;;;;;;;;;;;;;;;;; 
-  ;;断开交点  start
-  ;;;;;;;;;;;;;;;;;;;;;
-  ;;
+
+  ;;;---------------
+  ;;; 断开交点 start
+  ;;;---------------
+
   ;; dist1为pt0到wall1两条线的距离
   ;; ((125.34581575 2) (175.34581575 1)) ;(car dists)  (wall1line2-dist,wall1line1-dist)
-  ;;
   ;; dist2为pt0到wall2两条线的距离
   ;; ((72.25407628  2) (122.25407628 1))  ;(cadr dists) (wall2line2-dist,wall2line1-dist)
   (defun neatx1 (dist1 dist2)
@@ -76,9 +71,10 @@
      (list b2 a2)
      ) ;_ carmap
     ) ;_ defun
-  ;;;;;;;;;;;;;;;;
-  ;;断开交点  end
-  ;;;;;;;;;;;;;;;;
+
+  ;;; -------------
+  ;;; 断开交点  end
+  ;;; -------------
 
   
   (Util-Working)
@@ -103,10 +99,10 @@
       )
     )
 
-  
-  ;;---------------
-  ;; Main Function
-  ;;---------------
+  ;;; ------------ 
+  ;;; Main Function
+  ;;; ------------ 
+
   (setq >90 (/ pi 2))
   ;; CmdEcho:  Controls whether prompts and input are echoed during the AutoLISP command function.
   (setvar "CmdEcho" 0)
@@ -120,9 +116,11 @@
   (setvar "BlipMode" 0)
   (princ "\rLoaded. ")
 
-  ;;------------------------------------
-  ;; 鼠标框选4lines start  并且初始pt0 pt1
-  ;;-------------------------------------
+  ;;; -------------------
+  ;;; 鼠标框选4lines start  
+  ;;; -------------------
+
+  ;; 初始pt0 pt1
   (while
       
       (progn
@@ -151,9 +149,10 @@
     (princ "\n------4lines--------------\n")
     (princ ss)
     (command ".UNDO" "Group")
-    ;;-----------------------------------
-    ;; 鼠标框选4lines end
-    ;;------------------------------------
+
+    ;;; -----------------
+    ;;; 鼠标框选4lines end
+    ;;; -----------------
     
     (ssfunc ss
             '(lambda ()
@@ -218,10 +217,9 @@
        (princ "\rerror: Walls have unequal number of lines.")
        )
       (T
-       ;;------------------------------------
+
        ;; Create List of Perpendiculars(垂直线)
        ;; 获取pt0垂直与walls的垂直点（wall1-ps,wall2-ps）
-       ;;------------------------------------
        (setq perps
              (mapcar
               '(lambda (x)
@@ -237,12 +235,11 @@
               walls
               )
              )
-       ;;--------------------------
+
        ;; Create List of Distances
        ;; 获取pt0垂直与walls的垂直距离并对每道墙的墙线进行编号（wall1-dist,wall2-dist）
        ;; wall1-dist(wall1-dist1, wall1-dist2)
        ;; wall1-dist(wall1-dist1, wall1-dist2)
-       ;;--------------------------
        (setq dists
              (mapcar
               '(lambda (x)
@@ -306,15 +303,12 @@
     (command ".UNDO" "End")
     )
   
-  ;;----------------------------
   ;; Restore enviroment, memory
-  ;;----------------------------
   (princ)
   )
 
 (princ "\n  WALLX loaded.")
 (princ)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; End Of File
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

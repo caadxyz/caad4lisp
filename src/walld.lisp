@@ -1,6 +1,5 @@
 (in-package :caad4lisp)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; w1: width1
 ;; w2: width2
 ;; plist: (p1 p2 p3 ...)
@@ -8,7 +7,6 @@
 ;; seglist: ((p1 p2) (p2 p3) ...)
 ;; seg1list: ( w1seglist1  w1seglist2 ...)
 ;; seg2list: ( w2seglist1  w2seglist2 ...)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun c:walld (/ w1 w2 plist anglist seglist seg1list seg2list
                 getpointlist segxlist intlst
 )
@@ -112,7 +110,6 @@
   (Geom-EntmakeLines (intlst seg2list) )
 ) ;_ main funcation
 
-
 ;; temp wall-grdraw
 (defun wall-grdraw (p1 p2 w1 w2 / ang)
   (setq ang (angle p1 p2))
@@ -123,3 +120,4 @@
           (polar p2 (+ ang (* pi 1.5)) w2) 251
           )
   )
+

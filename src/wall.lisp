@@ -1,13 +1,13 @@
-(in-package :caad4lisp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;                                                              ;;;;
 ;;;;                    wall tools                                ;;;;
 ;;;;                                                              ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(in-package :caad4lisp)
 
-;;;; todo test
-;;;; return: (list (list  line0Ename line0 ) (list line1Ename line1) angle )
+;; todo test
+;; return: (list (list  line0Ename line0 ) (list line1Ename line1) angle )
 (defun Wall-CreateByEntLines (entLine0 entLine1 / line0 line1  angle0 angle1 )
   "Create a wall by two lines."
   (setq line0 (Util-Data-GetDataByKey '(10 11) (entget entLine0) ))
@@ -26,7 +26,7 @@
     )
   )
 
-;;;; todo: underwork
+;; todo: underwork
 (defun Wall-Flip (wall / wline0 wline1)
   "Flip this wall's direction."
   )
