@@ -20,7 +20,7 @@ powered by:        caad.xyz
 1. In the Options dialog box, Files tab, select Support File Search Path.
 1. Click Add.
 1. Click Browse.
-1. In the Browse for Folder dialog box, browse to and select the **caad4lisp** folder to add. Click OK.
+1. In the Browse for Folder dialog box, browse to and select the **caad4lisp/src** folder to add. Click OK.
 1. In the Options dialog box, click OK.
 
 **Load caad4lisp plugin in cad software**
