@@ -9,27 +9,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; autolisp  build in geometry utility function 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
 ;; (angle pt1 pt2)
 ;; Returns an angle in radians of a line defined by two endpoints
-;;
 ;; (distance pt1 pt2)
 ;; Returns the 3D distance between two points
-;;
 ;; (inters pt1 pt2 pt3 pt4 [onseg])
 ;; Finds the intersection of two lines
-;;
 ;; (osnap pt mode)
 ;; Returns a 3D point that is the result of applying an
 ;; Object Snap mode to a specified point
-;;
 ;; (polar pt ang dist)
 ;; Returns the UCS 3D point at a specified angle
 ;; and distance from a point
-;;
-;; (textbox elist)
-;; Measures a specified text object,
-;; and returns the diagonal coordinates of a box that encloses the text
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; geometry entity making
