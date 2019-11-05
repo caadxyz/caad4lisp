@@ -31,10 +31,29 @@
 ;; Measures a specified text object,
 ;; and returns the diagonal coordinates of a box that encloses the text
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; geometry entity making
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; make lineStruct from entLine
+;; return: (list entLine edata pointsData)
+(defun Geom-Line-MakeStructByEntLine(entLine / edata pointsData )
+  (setq edata (entget entLine))
+  (setq pointsData (Util-Data-GetDataByKey '(10 11) edata ))
+  (list entLine edata pointsData)
+  )
+
+;; todo: test
+;; entLine flip
+(defun Geom-EntLine-Flip(entLine / lineStruct edata pointsData )
+  "flip a entitly line"
+  (setq lineStruct (Geom-Line-MakeStructByEntLine))
+  (setq edata (cadr lineStruct))
+  (setq pointsData (caddr lineStruct ))
+  (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
+  (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
+  (entmod edata)
+  )
 
 ;; function: entmakex lwpolyline 
 ;; isClosed: 0 or 1  , 1=closed
@@ -93,7 +112,6 @@
 (defun Geom-PerpPoint (pt0 pt1 pt2)
     (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) (/ pi 2) ) 1.0) nil)
 )
-
 
 ;; line: (point0 point1)
 ;; param:  0-> startpoint 1-> endpoint
@@ -169,18 +187,6 @@
    (Geom-Line-GetParamAtPoint line1 intersPoint)
    )
   )
-
-;; todo: test
-;; line flip
-(defun Geom-EntLine-Flip(entLine / edata pointData )
-  "flip a entitly line"
-  (setq edata (entget entLine))
-  (setq pointData (Util-Data-GetDataByKey '(10 11) edata ))
-  (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
-  (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
-  (entmod edata)
-  )
-
 
 ;; todo: test
 ;; parameter:
