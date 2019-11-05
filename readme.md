@@ -38,4 +38,5 @@ If your autocad version is 2015 or above 2015+  set `(setq Conf-AutoCAD-Version 
 
 * Using ASDF to setup developing environment
 * Using CODEX to compile documentation
+* Tested by `src/tests.lisp`
 
