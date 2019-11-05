@@ -230,3 +230,5 @@
     )
 )
 
+(princ "geom.lisp loaded")
+(princ)

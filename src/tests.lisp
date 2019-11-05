@@ -1,54 +1,65 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; testing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; init env
+
+;; env init;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun in-package(packageName)
   (princ "\n loading caad4lisp package ...\n " )
 )
+;; draw a line
+(defun drawLine ()
+  (command "._line"  "0,0,0" "100,100,0" "")
+  )
+(defun drawCircle ()
+  (command "._circle"  "0,0,0" 50)
+  )
 
 ;;;; util.lisp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "util.lisp")
 
-;; fun util-working
+;; Util-Working
 (princ "\n---util-working---\n")
-(princ "\n---1---\n")
 (Util-Working)
-(princ "\n---2---\n")
-(Util-Working)
-(princ "\n---3---\n")
-(Util-Working)
-(princ)
 
-;; var util-math-fuzz 
+;; var Util-Math-Fuzz 
 (princ "\n---util-math-fuzz---\n")
 (princ (> 0.0000011 util-math-fuzz)) 
 (princ (= 0.000001 util-math-fuzz)) 
 (princ (< 0.0000001 util-math-fuzz)) 
-(princ)
+(princ "\n")
+(Util-Working)
 
-
-;; util-math-odd
+;; Util-Math-Odd
 (princ "\n---util-math-odd---\n")
 (princ (Util-Math-Odd? 3)) 
 (princ (= nil (Util-Math-Odd? 4)) ) 
-(princ)
+(princ "\n")
+(Util-Working)
 
-;; Util-Data-GetDataByKey  & Util-Data-GetEntType
+;; Util-Data-GetDataByKey
 (princ "\n---util-data-getdatebykey---\n")
-(command "._line"  "0,0,0" "100,100,0" "")
-(setq edata0 (entget (entlast)))
+(drawLine)
 (princ "\n")
-(princ (Util-Data-GetDataByKey '(-1 0 10 11) edata0 ))
-(princ "\n---util-data-getenttype---\n")
-(princ (Util-Data-GetEntType edata0 '("LINE" "CIRCLE")) ) 
+(princ (Util-Data-GetDataByKey (list -1 0 10 11)  (entget (entlast)) ))
 (princ "\n")
-(command "._circle"  "0,0,0" 50)
+(Util-Working)
+Util-Data-GetEntType
+(princ "\n---Util-Data-GetEntType---\n")
+(princ (Util-Data-GetEntType (entget (entlast)) '("LINE" "CIRCLE")) ) 
+(entdel (entlast))
 (princ "\n")
-(setq edata1 (entget (entlast)))
+(Util-Working)
+
 (princ "\n")
-(princ (Util-Data-GetEntType edata1 '("LINE" "CIRCLE")) ) 
-(princ)
+(drawCircle)
+(princ "\n")
+(princ (Util-Data-GetEntType (entget (entlast))  '("LINE" "CIRCLE")) ) 
+(entdel (entlast))
+(princ "\n")
+(Util-Working)
 
 ;;;; geom.lisp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "geom.lisp")
 
+;; Geom-Line-MakeStructByEntLine
+;; (defun Geom-Line-MakeStructByEntLine(entLine / edata pointsData )

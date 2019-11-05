@@ -53,11 +53,13 @@
 ;; 对已经获得的entryData的相关数据获得与key相关的数据或数组
 ;; parameter:
 ;; key: element or list, 10 or '(-1 0 10 11)
-(defun Util-Data-GetDataByKey (key entData)
+(defun Util-Data-GetDataByKey (key eData)
     "Get related element or list from entity data by a key"
     (if (atom key)
         (cdr (assoc key eData))
-        (mapcar '(lambda (x) (cdr (assoc x eData))) key)
+        (mapcar '(lambda (x)
+                  (cdr (assoc x eData)))
+                key)
         )
 )
 
@@ -79,3 +81,6 @@
 ;;; matrix
 ;;;;;;;;;;;;;;;;;
 
+
+(princ "Util.lisp loaded")
+(princ)
