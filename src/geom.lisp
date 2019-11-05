@@ -35,23 +35,24 @@
 ;;; geometry entity making
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; make lineStruct from entLine
-;; return: (list entLine edata pointsData)
-(defun Geom-Line-MakeStructByEntLine(entLine / edata pointsData )
-  (setq edata (entget entLine))
-  (setq pointsData (Util-Data-GetDataByKey '(10 11) edata ))
-  (list entLine edata pointsData)
+(defun Geom-Line-MakeStruct(entLineOrEdata / edata dataByKey )
+  "make lineStruct  
+   return: (list entLine edata (list startPoint endPoint))"
+  (if (listp entLineOrEdata)
+      (setq edata entLineOrEdata )
+      (setq edata (entget entLineOrEdata))
+      )
+  (setq dataByKey (Util-Data-GetDataByKey '(-1 10 11) edata ))
+  (list (car dataByKey) (cdr dataByKey) edata)
   )
 
-;; todo: test
-;; entLine flip
-(defun Geom-EntLine-Flip(entLine / lineStruct edata pointsData )
-  "flip a entitly line"
-  (setq lineStruct (Geom-Line-MakeStructByEntLine))
-  (setq edata (cadr lineStruct))
-  (setq pointsData (caddr lineStruct ))
-  (setq edata (subst (cons 10 (cadr pointData)) (assoc 10 edata) edata ))
-  (setq edata (subst (cons 11 (car  pointData)) (assoc 11 edata) edata ))  
+(defun Geom-EntLine-Flip(entLineOrEdata / lineStruct edata pointsData )
+  "flip a line"
+  (setq lineStruct (Geom-Line-MakeStruct entLineOrEdata))
+  (setq edata (caddr lineStruct))
+  (setq pointsData (cadr lineStruct ))
+  (setq edata (subst (cons 10 (cadr pointsData)) (assoc 10 edata) edata ))
+  (setq edata (subst (cons 11 (car  pointsData)) (assoc 11 edata) edata ))  
   (entmod edata)
   )
 

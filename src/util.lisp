@@ -78,8 +78,12 @@
 ;; entityData 是否包含有match的数据类型type的信息
 ;; match 可以是type元素也可以是多个list组成的list
 (defun Util-Data-GetEntType (edata match)
-    "Check this entity data's type is the matching element or is  included in the matching list "
-    (member (Util-Data-GetDataByKey 0 edata) (if (listp match) match (list match)))
+    "Check this entity data's type is the matching element or 
+    is  included in the matching list "
+    (or (member
+         (Util-Data-GetDataByKey 0 edata)
+         (if (listp match) match (list match)))
+        )
 )
 
 

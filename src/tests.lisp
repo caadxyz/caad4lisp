@@ -15,7 +15,9 @@
   )
 
 ;;;; util.lisp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(princ "\n------------------------------\n")
 (load "util.lisp")
+(princ "\n------------------------------\n")
 
 ;; Util-Working
 (princ "\n---util-working---\n")
@@ -59,7 +61,32 @@ Util-Data-GetEntType
 (Util-Working)
 
 ;;;; geom.lisp ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(princ "\n------------------------------\n")
 (load "geom.lisp")
+(princ "\n------------------------------\n")
 
-;; Geom-Line-MakeStructByEntLine
-;; (defun Geom-Line-MakeStructByEntLine(entLine / edata pointsData )
+;; Geom-Line-MakeStruct
+(princ "\n---Geom-Line-MakeStruct---\n")
+(drawLine)
+(princ "\n---(entlast)---\n")
+(princ (Geom-Line-MakeStruct (entlast) )) 
+(princ "\n---(entget (entlast))---\n")
+(princ (Geom-Line-MakeStruct (entget (entlast) ) ))
+(entdel (entlast))
+(princ "\n")
+(Util-Working)
+(princ)
+
+;; Geom-EntLine-Flip
+(princ "\n---Geom-EntLine-Flip---\n")
+(drawLine)
+(princ "\n")
+(princ (cadr (Geom-Line-MakeStruct (entlast) )) ) 
+(princ "\n")
+(Geom-EntLine-Flip  (entlast) )
+(princ "\n")
+(princ (cadr (Geom-Line-MakeStruct (entlast) )) ) 
+(entdel (entlast))
+(princ "\n")
+(Util-Working)
+(princ)
