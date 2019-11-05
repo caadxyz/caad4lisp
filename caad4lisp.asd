@@ -4,7 +4,7 @@
   :license "MIT"
   :depends-on ()
   :components (
-               (:file "package")
+               (:file "./package")
                (:file "./src/util")
                (:file "./src/geom")
                (:file "./src/wall")

@@ -27,20 +27,19 @@
         )
   )
 
-;; function?
 (defun Util-Functionp (v)
+  "function?"
   (or (member (type v) '(SUBR USUBR)))
   )
 
-;; symbol?
 (defun Util-Symbolp (v)
+  "symbol?"
   (= (type v) 'SYM)
   )
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Math
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;
+;;;; Math
+;;;;;;;;;
 
 ;; A real number defining the maximum amount by which expr1 and expr2 can differ
 ;; and still be considered equal.
@@ -61,6 +60,7 @@
 ;;; retrieve the Entity Data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; todo edata or ename
 ;; 对已经获得的entryData的相关数据获得与key相关的数据或数组
 ;; parameter:
 ;; key: element or list, 10 or '(-1 0 10 11)
@@ -74,7 +74,7 @@
         )
 )
 
-;; todo
+;; todo edata or ename
 ;; entityData 是否包含有match的数据类型type的信息
 ;; match 可以是type元素也可以是多个list组成的list
 (defun Util-Data-GetEntType (edata match)
@@ -85,11 +85,6 @@
          (if (listp match) match (list match)))
         )
 )
-
-
-;;;;;;;;;;;;;;;;;
-;;; list
-;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;

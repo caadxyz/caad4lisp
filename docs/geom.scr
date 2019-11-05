@@ -4,7 +4,11 @@
 @b(Geometric algorithm in autolisp)
 
 @cl:with-package[name="caad4lisp"](
-@cl:doc(function Geom-EntLine-Flip)
+@cl:doc(function Geom-X)
+@cl:doc(function Geom-Y)
+@cl:doc(function Geom-Z)
+@cl:doc(function Geom-Line-MakeStruct)
+@cl:doc(function Geom-Line-Flip)
 @cl:doc(function Geom-Line-GetParamAtIntersection)
 @cl:doc(function Geom-Line-GetParamAtPoint)
 @cl:doc(function Geom-Line-GetPointAtParam)

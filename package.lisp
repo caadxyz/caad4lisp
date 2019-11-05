@@ -1,13 +1,19 @@
 (defpackage caad4lisp
-  (:use cl)
+  (:use :cl)
   (:export
 
     #:Util-Working
+    #:Util-Functionp
+    #:Util-Symbolp
     #:Util-Math-Odd?
     #:Util-Data-GetDataByKey
     #:Util-Data-GetEntType
 
-    #:Geom-EntLine-Flip
+    #:Geom-X
+    #:Geom-Y
+    #:Geom-Z
+    #:Geom-Line-MakeStruct
+    #:Geom-Line-Flip
     #:Geom-Line-GetParamAtIntersection
     #:Geom-Line-GetParamAtPoint
     #:Geom-Line-GetPointAtParam

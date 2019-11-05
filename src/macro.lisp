@@ -39,3 +39,19 @@
    (setq macroCode '(mapcar (quote (lambda (x) code)) inList) ) 
    (princ (Util-Macro vOut vIn macroCode))    
   )
+
+;; dotimes
+;; (Util-Dotimes (i 3) (print i) )
+(defun Util-Dotimes(outCode0 outCode1 /  vOut vIn macroCode)
+  (setq vOut (list (car outCode0) (cadr outCode0) outCode1)) 
+  (setq vIn '(count length code))
+  (setq macroCode
+        '(progn (setq count 0)
+          (while (< count length)
+            code
+            (setq count (1+ count))
+            )
+          )
+        )
+   (princ (Util-Macro vOut vIn macroCode))    
+  )

@@ -65,6 +65,18 @@ Util-Data-GetEntType
 (load "geom.lisp")
 (princ "\n------------------------------\n")
 
+;; Geom-XYZ
+(princ "\n---XYZ---\n")
+(princ "\nX\n")
+(princ (Geom-X '(0.0 1.0 2.0)))
+(princ "\nY\n")
+(princ (Geom-Y '(0.0 1.0 2.0)))
+(princ "\nZ\n")
+(princ (Geom-Z '(0.0 1.0 2.0)))
+(princ "\n")
+(Util-Working)
+(princ)
+
 ;; Geom-Line-MakeStruct
 (princ "\n---Geom-Line-MakeStruct---\n")
 (drawLine)
@@ -77,13 +89,13 @@ Util-Data-GetEntType
 (Util-Working)
 (princ)
 
-;; Geom-EntLine-Flip
-(princ "\n---Geom-EntLine-Flip---\n")
+;; Geom-Line-Flip
+(princ "\n---Geom-Line-Flip---\n")
 (drawLine)
 (princ "\n")
 (princ (cadr (Geom-Line-MakeStruct (entlast) )) ) 
 (princ "\n")
-(Geom-EntLine-Flip  (entlast) )
+(Geom-Line-Flip  (entlast) )
 (princ "\n")
 (princ (cadr (Geom-Line-MakeStruct (entlast) )) ) 
 (entdel (entlast))

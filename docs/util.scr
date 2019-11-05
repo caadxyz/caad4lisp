@@ -5,6 +5,8 @@
 
 @cl:with-package[name="caad4lisp"](
     @cl:doc(function Util-Working)
+    @cl:doc(function Util-Functionp)
+    @cl:doc(function Util-Symbolp)
     @cl:doc(function Util-Math-Odd?)
     @cl:doc(function Util-Data-GetDataByKey)
     @cl:doc(function Util-Data-GetEntType)

@@ -22,13 +22,26 @@
 ;; Returns the UCS 3D point at a specified angle
 ;; and distance from a point
 
+(defun Geom-X (thePoint)
+  "Reads 1st element of a point."
+  (car thePoint)
+  )
+(defun Geom-Y (thePoint)
+  "Reads 2nd element of a point."
+  (cadr thePoint)
+  )
+(defun Geom-Z (thePoint)
+  "Reads 3rd element of a point."
+  (caddr thePoint)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; geometry entity making
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; make lineStruct  
 (defun Geom-Line-MakeStruct(entLineOrEdata / edata dataByKey )
-  "make lineStruct  
-   return: (list entLine edata (list startPoint endPoint))"
+  "return: (list entLine edata (list startPoint endPoint))"
   (if (listp entLineOrEdata)
       (setq edata entLineOrEdata )
       (setq edata (entget entLineOrEdata))
@@ -37,7 +50,7 @@
   (list (car dataByKey) (cdr dataByKey) edata)
   )
 
-(defun Geom-EntLine-Flip(entLineOrEdata / lineStruct edata pointsData )
+(defun Geom-Line-Flip(entLineOrEdata / lineStruct edata pointsData )
   "flip a line"
   (setq lineStruct (Geom-Line-MakeStruct entLineOrEdata))
   (setq edata (caddr lineStruct))
