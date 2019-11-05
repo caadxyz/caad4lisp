@@ -27,6 +27,17 @@
         )
   )
 
+;; function?
+(defun Util-Functionp (v)
+  (or (member (type v) '(SUBR USUBR)))
+  )
+
+;; symbol?
+(defun Util-Symbolp (v)
+  (= (type v) 'SYM)
+  )
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Math
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
