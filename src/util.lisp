@@ -37,37 +37,6 @@
   (= (type v) 'SYM)
   )
 
-;; provide a macro function for autolisp
-;; example of macro
-;; (setq x 5)
-;; (util-macro 'x Util-Macro-Y) 
-;; (setq Util-Macro-Y
-;;     "macro start"
-;;     "vIn: y"
-;;     '(y
-;;     (+ y 3 (+ y 3 (+ y 4)))
-;;     )
-;;     "macro end"
-;; )
-(defun Util-Macro (vOut macro-code / vIn code func )
-  (defun func (f-vOut f-vIn f-code)
-    (mapcar
-         '(lambda (x)
-           (cond
-             ((not (listp x) )
-              (if (= x f-vIn) f-vOut x )
-              )
-             (t (func f-vOut f-vIn x))
-             )
-           )
-         f-code 
-         )
-    )
-    (setq vIn (car macro-code))
-    (setq code (cadr macro-code))
-    ;;(princ (func vOut vIn code))     
-    (eval (func vOut vIn code))    
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Math
