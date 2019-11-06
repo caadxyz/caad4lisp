@@ -1,7 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;                                                              ;;;;
 ;;;;                    wall tools                                ;;;;
-;;;;                                                              ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package :caad4lisp)
@@ -59,7 +57,7 @@
 ;; seglist: ((p1 p2) (p2 p3) ...)
 ;; seg1list: ( w1seglist1  w1seglist2 ...)
 ;; seg2list: ( w2seglist1  w2seglist2 ...)
-(defun c:walld (/ w1 w2 plist anglist seglist seg1list seg2list
+(defun C:Wall-Dline (/ w1 w2 plist anglist seglist seg1list seg2list
                 wall-grdraw getpointlist segxlist intlst
 )
 
@@ -173,5 +171,4 @@
   (Geom-EntmakeLines (intlst seg2list) )
   "main function end"
 ) 
-
 
