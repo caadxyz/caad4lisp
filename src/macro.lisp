@@ -1,10 +1,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defmacro for autolisp
+;; inspired by The Roots of Lisp ,Paul Graham
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;; The Roots of Lisp
-;;;; Paul Graham
-;;;; English: http://www.paulgraham.com/rootsoflisp.html
 ;; (pair. x y) takes two lists of the same length and returns a list of
 ;; two element lists containing successive pairs of an element from each.
 ;; > (pair. '(x y z) '(a b c))
@@ -26,6 +24,12 @@
         ('t (Util-Assoc x (cdr y)))))
 
 ;; macro
+;; vOut:  outside variable 
+;; vIn:   inside variable 
+;; code:  inside code
+;; return:replace inside variables with outside variables without code evalation.
+;; >(Util-Macro '(x y) '(a b) '(princ (+ a b)))
+;; '(princ (+ x y))
 (defun Util-Macro (vOut vIn code / vOutList vInList)
     (setq vOutList (if (listp vOut) vOut (list vOut))) 
     (setq vInList (if (listp vIn) vOut (list vIn))) 
@@ -42,7 +46,11 @@
          code 
          )
     )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; example of how to use macro
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; (setq x 5)
 ;; (setq Util-Macro-Y
 ;;     "macro start"
@@ -66,7 +74,6 @@
    (setq macroCode '(mapcar (quote (lambda (x) code)) inList) ) 
    (princ (Util-Macro vOut vIn macroCode))    
   )
-
 ;; dotimes
 ;; (Util-Dotimes (i 3) (print i) )
 (defun Util-Dotimes(outCode0 outCode1 /  vOut vIn macroCode)

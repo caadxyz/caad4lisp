@@ -6,8 +6,11 @@ cross platform:    Mac Windows
 cross cad software:AutoCAD IntelliCAD BricsCAD ...   
 powered by:        caad.xyz  
 
-**Utility**: general utility Library    
+**Utility**: general utility Library
+* implement  defmacro,functionp, symbolep in autolisp   
 **Geometry**: geometric algorithm Library  
+* point
+* line
 **Wall**: architectural wall element library and drawing tools  
 **Opening**: architectural opening element drawing tools  
 **Axis**: architectural axis element drawing tools  
