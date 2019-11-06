@@ -1,4 +1,31 @@
-;; provide defmacro for autolisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defmacro for autolisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;; The Roots of Lisp
+;;;; Paul Graham
+;;;; English: http://www.paulgraham.com/rootsoflisp.html
+;; (pair. x y) takes two lists of the same length and returns a list of
+;; two element lists containing successive pairs of an element from each.
+;; > (pair. '(x y z) '(a b c))
+;; ((x a) (y b) (z c))
+(defun Util-Pair (x y)
+  (cond ((and (null. x) (null y)) '())
+        ((and (not (atom x)) (not (atom y)))
+         (cons (list (car x) (car y))
+               (Util-Pair (cdr x) (cdr y))))))
+
+;; (assoc. x y ) takes an atom x and a list y of the form created by pair.,
+;; and returns the second element of the first list in y whose first element is x.
+;; > (assoc. 'x '((x a) (y b)))
+;; a
+;; > (assoc. 'x '((x new) (x a) (y b)))
+;; new
+(defun Util-Assoc (x y)
+  (cond ((eq (caar y) x) (cadar y))
+        ('t (Util-Assoc x (cdr y)))))
+
+;; macro
 (defun Util-Macro (vOut vIn code / vOutList vInList)
     (setq vOutList (if (listp vOut) vOut (list vOut))) 
     (setq vInList (if (listp vIn) vOut (list vIn))) 
