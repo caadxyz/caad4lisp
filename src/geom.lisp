@@ -60,33 +60,23 @@
   (entmod edata)
   )
 
-;; function: entmakex lwpolyline 
 ;; isClosed: 0 or 1  , 1=closed
-(defun Geom-EntmakexPolyline (pointList isClosed / isClosedStatus)
-  (setq isClosedStatus (cons 70 isClosed)) 
-  (if (= Conf-AutoCAD-Version "2015+") 
-    (entmakex 
-      (append
-          (list '(0 . "LWPOLYLINE") '(100 . "AcDbEntity") '(100 . "AcDbPolyline")
-		    (cons 90 (length pointList)) 
-            conf-isClosed
+(defun Geom-EntmakexPolyline (pointList isClosed )
+  "entmakex: make pline by points"
+  (entmakex 
+   (append
+    (list '(0 . "LWPOLYLINE")
+          '(100 . "AcDbEntity") '(100 . "AcDbPolyline")
+          (cons 90 (length pointList)) 
+          (cons 70 isClosed)
 	      ) ;_  list
-	      (mapcar '(lambda (x) (cons 10 x)) pointList)
-	  ) ;_  append
-    )
-    (entmakex 
-      (append
-          (list '(0 . "LWPOLYLINE")
-		    (cons 90 (length pointList)) 
-            isClosedStatus
-	      ) ;_  list
-	      (mapcar '(lambda (x) (cons 10 x)) pointList)
-	  ) ;_  append
-    ))
-)
+    (mapcar '(lambda (x) (cons 10 x)) pointList)
+    ) ;_  append
+   ))
 
 ;;  function: entmake lines
 (defun Geom-EntmakeLines ( pointList / segmentList )
+  "entmake: make line segments by points"
   (setq segmentList (mapcar
                      '(lambda (p0 p1)
                        (cons p0 (list p1))
@@ -95,7 +85,6 @@
                      (cdr pointList)
                      )
         )
-  ;; (princ segmentList)
   (mapcar '(lambda(segment)
             (entmake (list
                       (cons  0 "LINE")
@@ -103,7 +92,6 @@
                       (cons 11 (cadr segment)) ; segmentPoint1
                       )
              )
-            ;; (princ x)
             )
           segmentList )
   ) ;_ defun
@@ -113,7 +101,8 @@
 ;;; Geometric algorithm
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; 求pt0到通过pt1及pt2的垂直点
+
+;; cn: 求pt0到通过pt1及pt2的垂直点
 (defun Geom-PerpPoint (pt0 pt1 pt2)
     (inters pt1 pt2 pt0 (polar pt0 (+ (angle pt1 pt2) (/ pi 2) ) 1.0) nil)
 )

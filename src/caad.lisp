@@ -5,20 +5,19 @@
 
 
 (defun in-package(packageName)
-  (princ "\n loading caad4lisp package ...\n " )
-  )
+  (princ "\n loading caad4lisp package ...\n " ))
 
 (princ "\n ---start loading caad.lsp---\n")
 
 ;; autolisp command compatibility
-(load "command-s.lisp")
+(load "autolisp-comm.lisp")
 ;; caad library
 (load "util.lisp")
 (load "geom.lisp")
 
 ;; wall & openning
+(load "wall.lisp")
 (load "wallx.lisp")
-(load "walld.lisp")
 
 ;; symbole
 (load "bubble.lisp")
