@@ -5,6 +5,7 @@ tags
 *.swp
 \#*\#
 **/*~
+test.lisp
 docs/build
 docs/gh-pages
 
